@@ -95,7 +95,7 @@ button { font: inherit; color: inherit; }
 }
 
 .hero-media, .hero::after { position: absolute; inset: 0; }
-.hero-media { z-index: -2; overflow: hidden; }
+.hero-media { z-index: -3; overflow: hidden; }
 .hero-media img, .hero-scroll-video {
   position: absolute;
   inset: 0;
@@ -107,8 +107,16 @@ button { font: inherit; color: inherit; }
 }
 .hero-scroll-video { visibility: hidden; }
 .is-scroll-video .hero-scroll-video.is-ready { visibility: visible; }
-.hero::after {
+.is-scroll-video .hero::before {
+  content: "";
+  position: absolute;
+  inset: 48% 0 0;
   z-index: -1;
+  background: linear-gradient(transparent, var(--surface));
+  opacity: var(--hero-fade, 0);
+}
+.hero::after {
+  z-index: -2;
   content: "";
   background: linear-gradient(90deg, #080a09f5 0%, #080a09c9 24%, #080a0962 46%, #080a0915 68%), linear-gradient(0deg, #0d0e0d40, transparent 46%);
 }
@@ -316,5 +324,6 @@ button { font: inherit; color: inherit; }
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
   .hero-story.is-scroll-video::after { display: none; }
   .hero-story.is-scroll-video .hero { position: relative; }
+  .hero-story.is-scroll-video .hero::before { display: none; }
   .hero-story.is-scroll-video .hero-scroll-video.is-ready { visibility: hidden; }
 }
