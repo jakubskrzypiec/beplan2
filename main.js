@@ -121,7 +121,7 @@ function updateHeroMotion() {
   }
 
   if (!heroVideo.hasAttribute('src')) {
-    heroVideo.src = compactLayout.matches ? 'assets/hero-scroll-mobile.mp4?v=3' : 'assets/hero-scroll.mp4?v=3';
+    heroVideo.src = compactLayout.matches ? 'assets/hero-scroll-mobile.mp4?v=4' : 'assets/hero-scroll.mp4?v=4';
   }
   requestHeroFrame();
 }

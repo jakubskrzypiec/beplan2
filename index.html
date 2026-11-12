@@ -7,13 +7,13 @@
   <meta name="description" content="BEPLAN Design + Build. Integrated architecture, interior design and turnkey workspaces across EMEA.">
   <title>BEPLAN — Design + Build</title>
   <link rel="preload" href="assets/rethink-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=3">
-  <script src="main.js?v=3" defer></script>
-  <script type="module" src="globe.js?v=3"></script>
+  <link rel="stylesheet" href="styles.css?v=4">
+  <script src="main.js?v=4" defer></script>
+  <script type="module" src="globe.js?v=4"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
+  <header class="site-header" id="top">
     <div class="wrap header-inner">
       <a class="brand" href="./" aria-label="BEPLAN Design and Build home">
         <span class="brand-name">BEPLAN</span>
@@ -35,22 +35,24 @@
       <div class="hero">
         <div class="hero-media" aria-hidden="true">
           <picture>
-            <source media="(max-width: 760px)" srcset="assets/hero-mobile.webp?v=3">
-            <img src="assets/hero.webp?v=3" alt="" width="1920" height="1080" fetchpriority="high">
+            <source media="(max-width: 760px)" srcset="assets/hero-mobile.webp?v=4">
+            <img src="assets/hero.webp?v=4" alt="" width="1920" height="1080" fetchpriority="high">
           </picture>
           <video class="hero-scroll-video" muted playsinline preload="auto"></video>
-          <img class="hero-end-frame" src="assets/hero-finale.webp?v=3" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <img class="hero-end-frame" src="assets/hero-finale.webp?v=4" alt="" width="1920" height="1080" loading="lazy" decoding="async">
         </div>
         <div class="wrap hero-content">
-          <h1 id="hero-title">We design.<br>We build.<br>We deliver.</h1>
-          <p>Integrated architecture and turnkey<br class="desktop-break"> workspaces across EMEA.</p>
-          <a class="button" href="#projects">Explore our work <span class="arrow" aria-hidden="true"></span></a>
+          <h1 class="statement" id="hero-title">We design.<br>We build.<br>We deliver.</h1>
+          <div class="hero-actions">
+            <a class="button button-light" href="#projects">Explore projects <span class="arrow" aria-hidden="true"></span></a>
+            <a class="button button-dark" href="#contact-form">Get in touch <span class="arrow" aria-hidden="true"></span></a>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="projects wrap" id="projects" aria-labelledby="projects-title">
-      <h2 class="section-label" id="projects-title">Selected projects</h2>
+      <h2 class="statement" id="projects-title">Selected projects</h2>
       <div class="project-row">
         <a class="project" href="https://beplan.pl/projects/glovo-headquarters-warsaw/">
           <img src="assets/glovo.webp" alt="" width="1080" height="608" loading="lazy">
@@ -144,13 +146,16 @@
         </div>
       </div>
 
-      <div class="contact-interlude" aria-hidden="true">
+      <div class="contact-interlude">
         <img src="assets/contact-interlude.webp" alt="" width="1920" height="640" loading="lazy" decoding="async">
+        <div class="wrap interlude-content" data-reveal>
+          <p class="statement">Space for<br>better work.</p>
+        </div>
       </div>
 
       <div class="wrap contact-panel" id="contact-form" data-reveal>
         <p class="section-label">Contact</p>
-        <h2>Tell us about your project.</h2>
+        <h2 class="statement">Tell us about<br>your project.</h2>
         <p class="section-description">A short brief helps us understand the scope and how we can work together.</p>
         <form class="enquiry" action="mailto:i.molnar@beplan.pl" method="post" enctype="text/plain">
           <div class="enquiry-fields">
@@ -188,39 +193,44 @@
         </form>
       </div>
 
-      <div class="wrap contact-offices" data-reveal>
-        <h2>Our offices</h2>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-studio">
+          <a class="brand" href="./" aria-label="BEPLAN Design and Build home">
+            <span class="brand-name">BEPLAN</span>
+            <span class="brand-service">Design + Build</span>
+          </a>
+          <p>Architecture, design and fit-out for workplaces across Europe, the Middle East and Africa.</p>
+        </div>
+        <nav aria-label="Footer">
+          <p class="footer-label">Explore</p>
+          <a href="#projects">Projects</a>
+          <a href="#expertise">Expertise</a>
+          <a href="#international">International</a>
+          <a href="https://beplan.pl/#about-anchor">Studio</a>
+          <a href="#contact-form">Contact</a>
+        </nav>
         <address>
-          <h3>Warsaw</h3>
+          <p class="footer-label">Warsaw</p>
           <p>Wschodnia 5, 05-090, Poland</p>
           <a href="tel:+48666244516">+48 666 244 516</a>
           <a href="mailto:i.molnar@beplan.pl">i.molnar@beplan.pl</a>
         </address>
         <address>
-          <h3>Valencia</h3>
+          <p class="footer-label">Valencia</p>
           <p>Av. Francia 47, Valencia, Spain</p>
           <a href="tel:+34618567136">+34 618 567 136</a>
           <a href="mailto:i.molnar@beplan360.com">i.molnar@beplan360.com</a>
         </address>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <a class="brand" href="./" aria-label="BEPLAN Design and Build home">
-        <span class="brand-name">BEPLAN</span>
-        <span class="brand-service">Design + Build</span>
-      </a>
-      <nav aria-label="Footer">
-        <a href="#projects">Projects</a>
-        <a href="#expertise">Expertise</a>
-        <a href="#international">International</a>
-        <a href="#contact">Contact</a>
-      </nav>
       <div class="footer-legal">
         <span>© BEPLAN Design + Build</span>
         <a href="https://beplan.pl/privacy-policy/">Privacy policy</a>
+        <a class="footer-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
       </div>
     </div>
   </footer>
