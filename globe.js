@@ -41,6 +41,10 @@ function drawProjectGlobe(context) {
   let request = null;
   let lastDraw = null;
   let elapsed = 0;
+  let targetLongitude = 0;
+  let targetLatitude = 0;
+  let pointerLongitude = 0;
+  let pointerLatitude = 0;
 
   function stroke(shape, color) {
     context.beginPath();
@@ -58,8 +62,8 @@ function drawProjectGlobe(context) {
 
   function draw() {
     if (!width || !height) return;
-    const longitude = focus[0] + 19 * Math.sin(elapsed / 11000);
-    const latitude = focus[1];
+    const longitude = focus[0] + 9 * Math.sin(elapsed / 11000) + pointerLongitude;
+    const latitude = focus[1] + pointerLatitude;
     projection.rotate([-longitude, -latitude]);
 
     context.clearRect(0, 0, width, height);
@@ -76,12 +80,12 @@ function drawProjectGlobe(context) {
 
     context.lineWidth = 0.75;
     context.setLineDash([1, 5]);
-    stroke(grid, '#94949440');
+    stroke(grid, '#ffffff1c');
     context.setLineDash([]);
-    fill(land, '#a4a4a413');
-    fill(highlighted, '#bababa35');
-    stroke(land, '#b1b1b168');
-    stroke(borders, '#b1b1b169');
+    fill(land, '#ffffff0c');
+    fill(highlighted, '#ffffff2a');
+    stroke(land, '#ffffff62');
+    stroke(borders, '#ffffff4a');
     context.lineWidth = 1.1;
     stroke(routes, '#dddddd30');
     context.setLineDash([3, 11]);
@@ -100,12 +104,12 @@ function drawProjectGlobe(context) {
     canvas.height = Math.round(height * scale);
     context.setTransform(scale, 0, 0, scale, 0, 0);
     radius = Math.min(width * 0.57, height * 0.55);
-    center = [width * 0.55, height * 0.53];
+    center = [width * 0.55, height * 0.51];
     projection.scale(radius).translate(center);
     globeShade = context.createRadialGradient(center[0] - radius * 0.26, center[1] - radius * 0.43, 0, ...center, radius);
-    globeShade.addColorStop(0, '#363636');
-    globeShade.addColorStop(0.65, '#202020');
-    globeShade.addColorStop(1, '#101010');
+    globeShade.addColorStop(0, '#292929');
+    globeShade.addColorStop(0.65, '#161616');
+    globeShade.addColorStop(1, '#080808');
     rimLight = context.createLinearGradient(center[0] - radius, 0, center[0] + radius, height);
     rimLight.addColorStop(0, '#f0f0f033');
     rimLight.addColorStop(0.34, '#f0f0f0b3');
@@ -125,7 +129,11 @@ function drawProjectGlobe(context) {
       return;
     }
     if (lastDraw === null || now - lastDraw >= 32) {
-      if (lastDraw !== null) elapsed += Math.min(now - lastDraw, 64);
+      const delta = lastDraw === null ? 32 : Math.min(now - lastDraw, 64);
+      const follow = 1 - Math.exp(-delta / 240);
+      pointerLongitude += (targetLongitude - pointerLongitude) * follow;
+      pointerLatitude += (targetLatitude - pointerLatitude) * follow;
+      elapsed += delta;
       lastDraw = now;
       draw();
     }
@@ -141,8 +149,27 @@ function drawProjectGlobe(context) {
     running = !running;
     updateMotion();
   });
+  const section = stage.closest('.international');
+  section.addEventListener('pointermove', (event) => {
+    if (event.pointerType !== 'mouse' || reducedMotion.matches) return;
+    const bounds = stage.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    const overGlobe = x >= 0 && x <= 1 && y >= 0 && y <= 1;
+    targetLongitude = overGlobe ? (0.5 - x) * 38 : 0;
+    targetLatitude = overGlobe ? (y - 0.5) * 20 : 0;
+  }, { passive: true });
+  section.addEventListener('pointerleave', () => {
+    targetLongitude = 0;
+    targetLatitude = 0;
+  });
   reducedMotion.addEventListener('change', () => {
     running = !reducedMotion.matches;
+    if (reducedMotion.matches) {
+      targetLongitude = pointerLongitude = 0;
+      targetLatitude = pointerLatitude = 0;
+      draw();
+    }
     updateMotion();
   });
   new IntersectionObserver(([entry]) => {
@@ -155,11 +182,14 @@ function drawProjectGlobe(context) {
 
 function layoutLabels(cities, projection, width, height) {
   const narrow = width < 510;
-  const gap = narrow ? 18 : 25;
+  const gap = narrow ? 28 : 44;
   const margin = narrow ? 12 : 20;
   // Set the label positions once per resize. The leader lines follow the
   // projected points as the globe turns.
-  const selected = narrow ? cities.slice(0, 9) : cities;
+  const featured = new Set(narrow
+    ? ['Warsaw', 'Paris', 'Dubai', 'Johannesburg']
+    : ['Warsaw', 'Paris', 'Barcelona', 'Lisbon', 'Dubai', 'Johannesburg']);
+  const selected = cities.filter((city) => featured.has(city.name));
   return [-1, 1].flatMap((side) => {
     const column = selected.filter((city) => (city.coordinates[0] < 17 ? -1 : 1) === side)
       .map((city) => ({ city, y: projection(city.coordinates)[1] }))
@@ -169,7 +199,8 @@ function layoutLabels(cities, projection, width, height) {
       const lastAvailableRow = height - margin - (column.length - 1 - index) * gap;
       const row = Math.min(lastAvailableRow, Math.max(nextRow, y));
       nextRow = row + gap;
-      return { city, x: side === -1 ? margin : width - margin, y: row, side, fontSize: narrow ? 11 : 13 };
+      const inset = margin + (index % 3) * (narrow ? 7 : 23);
+      return { city, x: side === -1 ? inset : width - inset, y: row, side, fontSize: narrow ? 11 : 13 };
     });
   });
 }
@@ -189,9 +220,12 @@ function drawCities(context, projection, cities, labels, globeCenter, elapsed) {
     context.globalAlpha = opacity;
     context.beginPath();
     context.moveTo(lineStart, y);
-    context.lineTo(lineStart - side * 18, y);
-    context.lineTo(pointX, pointY);
-    context.strokeStyle = '#d5d5d55c';
+    context.quadraticCurveTo(lineStart - side * 45, y, pointX, pointY);
+    const leader = context.createLinearGradient(lineStart, y, pointX, pointY);
+    leader.addColorStop(0, '#ffffff10');
+    leader.addColorStop(0.76, '#ffffff36');
+    leader.addColorStop(1, '#ffffff76');
+    context.strokeStyle = leader;
     context.stroke();
     context.fillStyle = '#f0f0f0';
     context.fillText(city.name, x, y);

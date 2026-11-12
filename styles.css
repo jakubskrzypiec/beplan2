@@ -174,8 +174,6 @@ button { font: inherit; color: inherit; }
   border-right: 1px solid currentColor;
   transform: translateY(-50%) rotate(45deg);
 }
-.button:hover .arrow, .project:hover .arrow { transform: translateX(3px); }
-
 .projects { padding-top: clamp(26px, 2.58vw, 45px); }
 .section-label {
   display: flex;
@@ -202,19 +200,15 @@ button { font: inherit; color: inherit; }
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: clamp(165px, 21.9vw, 368px);
+  min-height: clamp(180px, 25vw, 440px);
   background: #262626;
 }
-.project-row-secondary .project { min-height: clamp(160px, 20.3vw, 340px); }
+.project-row-secondary .project { min-height: clamp(175px, 23vw, 410px); }
 .project img, .project::after { position: absolute; inset: 0; width: 100%; height: 100%; }
 .project img { z-index: -2; object-fit: cover; object-position: center; transition: transform .45s ease; }
 .project::after { z-index: -1; content: ""; background: linear-gradient(0deg, #0a0a0ad9, #0a0a0a38 43%, #0a0a0a12 100%); }
 .project:hover img { transform: scale(1.035); }
 .project-caption {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
   padding: clamp(14px, 1.4vw, 23px) clamp(16px, 2vw, 33px);
   font-size: clamp(14px, 1.65vw, 23px);
   line-height: 1.15;
@@ -307,16 +301,31 @@ button { font: inherit; color: inherit; }
 }
 .contact-action { border-left: 1px solid var(--line); padding: 14px 0 14px clamp(28px, 5vw, 86px); }
 .contact-action p { margin-bottom: clamp(15px, 1.8vw, 26px); font-size: clamp(16px, 1.65vw, 24px); }
-.contact-interlude { position: relative; display: grid; align-items: center; isolation: isolate; min-height: clamp(260px, 30vw, 480px); }
+.contact-interlude { position: relative; display: grid; align-items: center; isolation: isolate; overflow: hidden; min-height: clamp(260px, 30vw, 480px); }
 .contact-interlude img { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 56% center; }
+.contact-interlude::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  background: repeating-linear-gradient(112deg, transparent 0 16%, #0009 18% 23%, transparent 26% 38%);
+  filter: blur(10px);
+  mix-blend-mode: multiply;
+  opacity: .7;
+  animation: moving-shadow 13s ease-in-out infinite alternate;
+}
+@keyframes moving-shadow {
+  from { transform: translateX(-9%) skewX(-4deg); }
+  to { transform: translateX(12%) skewX(5deg); }
+}
 .contact-interlude::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, var(--surface), transparent 25%, transparent 66%, var(--surface)), linear-gradient(90deg, #0b0b0bce, #0b0b0b16 75%);
+  background: linear-gradient(180deg, var(--surface), transparent 25%, transparent 66%, var(--surface)), radial-gradient(ellipse at center, #0b0b0b77, transparent 76%);
 }
-.interlude-content { padding-block: 48px; }
+.interlude-content { padding-block: 48px; text-align: center; text-shadow: 0 2px 22px #000; }
 .contact-panel { padding-block: clamp(54px, 6vw, 100px) clamp(64px, 7vw, 120px); scroll-margin-top: 10px; }
 .contact-panel .section-description { max-width: 55ch; margin-top: 20px; font-size: clamp(15px, 1.28vw, 18px); }
 .enquiry { display: grid; gap: 22px; margin-top: 22px; border-top: 1px solid var(--line); padding-top: 23px; }
@@ -406,7 +415,7 @@ button { font: inherit; color: inherit; }
   .hero-actions .button { min-height: 44px; font-size: 11px; gap: 8px; padding-inline: 10px; }
   .project-row, .project-row-secondary { grid-template-columns: 1fr; }
   .project-row-secondary { margin-top: var(--gap); }
-  .project-row .project { min-height: 0; aspect-ratio: 1.9; }
+  .project-row .project { min-height: 0; aspect-ratio: 1.6; }
   .expertise, .contact-inner { grid-template-columns: 1fr; }
   .service-list, .contact-action { border-left: 0; padding: 0; margin: 0; }
   .service-list summary { min-height: 58px; }
@@ -424,4 +433,5 @@ button { font: inherit; color: inherit; }
   .hero-story.is-scroll-video .hero::before { display: none; }
   .hero-story.is-scroll-video .hero-scroll-video.is-ready { visibility: hidden; }
   .hero-story.is-scroll-video .hero-content { opacity: 1; transform: none; pointer-events: auto; }
+  .contact-interlude::before { animation: none; }
 }

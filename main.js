@@ -37,7 +37,6 @@ const heroEndFrame = heroStory.querySelector('.hero-end-frame');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const heroFrameRate = 24;
 const heroPlaybackEnd = 0.78;
-const heroTimeline = [[0, 0], [0.20, 0.225], [0.73, 0.68], [1, 1]];
 let heroFrameRequest = null;
 let heroProgress = null;
 let heroFrameTime = null;
@@ -48,11 +47,9 @@ function smoothStep(value) {
 }
 
 function clipProgress(progress) {
-  // Give the fast turn through the reception more of the scroll distance.
-  const end = heroTimeline.findIndex(([scroll], index) => index > 0 && progress <= scroll);
-  const [startScroll, startClip] = heroTimeline[end - 1];
-  const [endScroll, endClip] = heroTimeline[end];
-  return startClip + (progress - startScroll) / (endScroll - startScroll) * (endClip - startClip);
+  // Slow the middle of the shot continuously through the turn.
+  const phase = progress * Math.PI * 2;
+  return progress + 0.24 * (Math.sin(phase) - 0.5 * Math.sin(phase * 2)) / (Math.PI * 2);
 }
 
 function updateHeroFrame(timestamp) {
@@ -63,7 +60,7 @@ function updateHeroFrame(timestamp) {
   if (travel <= 0) return;
 
   const target = Math.max(0, Math.min(1, -heroStory.getBoundingClientRect().top / travel));
-  const elapsed = heroFrameTime === null ? 1000 / 60 : timestamp - heroFrameTime;
+  const elapsed = heroFrameTime === null ? 1000 / 60 : Math.min(timestamp - heroFrameTime, 50);
   heroFrameTime = timestamp;
   const lastFrame = Math.max(1, Math.round(heroVideo.duration * heroFrameRate) - 1);
 
@@ -74,7 +71,7 @@ function updateHeroFrame(timestamp) {
     const halfFrame = heroPlaybackEnd / (2 * lastFrame);
     heroProgress = Math.abs(remaining) < halfFrame
       ? target
-      : heroProgress + remaining * (1 - Math.exp(-elapsed / 75));
+      : heroProgress + remaining * (1 - Math.exp(-elapsed / 120));
   }
 
   const playback = Math.min(1, heroProgress / heroPlaybackEnd);
