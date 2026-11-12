@@ -1,15 +1,5 @@
 import { feature, geoDistance, geoOrthographic, geoPath, mesh, world } from './assets/globe-geometry.js';
 
-const cityLabels = new Map([
-  ['Warsaw', [9, -8]],
-  ['Dubai', [-9, -8]],
-  ['Paris', [-9, -7]],
-  ['Barcelona', [8, -8]],
-  ['Lisbon', [8, -9]],
-  ['Madrid', [-7, 16]],
-  ['Ljubljana', [8, 10]],
-]);
-
 const canvas = document.querySelector('#project-globe');
 const context = canvas.getContext('2d');
 if (context) drawProjectGlobe(context);
@@ -30,7 +20,6 @@ function drawProjectGlobe(context) {
   };
   const land = feature(world, world.objects.land);
   const borders = mesh(world, countries, (a, b) => a !== b);
-  const focus = [22, 45];
   const projection = geoOrthographic().precision(0.8);
   const path = geoPath(projection, context);
   let width = 0;
@@ -38,8 +27,6 @@ function drawProjectGlobe(context) {
   let radius;
   let center;
   let globeShade;
-  let depthShade;
-  let edgeFade;
   let lit = false;
   let running = !reducedMotion.matches;
   let request = null;
@@ -62,27 +49,24 @@ function drawProjectGlobe(context) {
 
   function draw() {
     if (!width || !height) return;
-    const longitude = focus[0] + 4 * Math.sin(elapsed / 13000);
-    const latitude = focus[1];
+    const longitude = 19 + 29 * Math.sin(elapsed / 10500);
+    const latitude = 16;
     projection.rotate([-longitude, -latitude]);
 
     context.clearRect(0, 0, width, height);
+    context.lineWidth = 1;
     context.beginPath();
     context.arc(...center, radius, 0, Math.PI * 2);
     context.fillStyle = globeShade;
     context.fill();
+    context.strokeStyle = '#93939345';
+    context.stroke();
+
     context.lineWidth = 0.75;
-    fill(land, '#77777764');
-    fill(highlighted, '#b0b0b04a');
-    stroke(land, '#cccccc58');
-    stroke(borders, '#b8b8b833');
-    context.globalCompositeOperation = 'source-atop';
-    context.fillStyle = depthShade;
-    context.fillRect(0, 0, width, height);
-    context.globalCompositeOperation = 'destination-in';
-    context.fillStyle = edgeFade;
-    context.fillRect(0, 0, width, height);
-    context.globalCompositeOperation = 'source-over';
+    fill(land, '#a4a4a413');
+    fill(highlighted, '#bababa35');
+    stroke(land, '#b1b1b168');
+    stroke(borders, '#b1b1b169');
     drawCities(context, projection, cities, [longitude, latitude], width, height);
   }
 
@@ -93,22 +77,12 @@ function drawProjectGlobe(context) {
     canvas.width = Math.round(width * scale);
     canvas.height = Math.round(height * scale);
     context.setTransform(scale, 0, 0, scale, 0, 0);
-    radius = Math.min(width * 0.91, height * 1.04);
-    center = [width * 0.445, height * 0.47];
+    radius = Math.min(width * 0.60, height * 0.70);
+    center = [width * (width < 540 ? 0.52 : 0.60), radius + height * 0.035];
     projection.scale(radius).translate(center);
-    globeShade = context.createRadialGradient(center[0] - radius * 0.17, center[1] - radius * 0.2, 0, ...center, radius);
-    globeShade.addColorStop(0, '#303030');
-    globeShade.addColorStop(0.52, '#1b1b1b');
-    globeShade.addColorStop(1, '#0b0b0b');
-    depthShade = context.createRadialGradient(center[0], center[1] - radius * 0.10, radius * 0.12,
-      center[0], center[1] - radius * 0.10, radius * 0.86);
-    depthShade.addColorStop(0, '#0000');
-    depthShade.addColorStop(0.55, '#08080819');
-    depthShade.addColorStop(1, '#080808a0');
-    edgeFade = context.createLinearGradient(0, 0, width, 0);
-    edgeFade.addColorStop(0, '#0000');
-    edgeFade.addColorStop(0.18, '#000');
-    edgeFade.addColorStop(1, '#000');
+    globeShade = context.createRadialGradient(center[0] - radius * 0.19, center[1] - radius * 0.4, 0, ...center, radius);
+    globeShade.addColorStop(0, '#292929');
+    globeShade.addColorStop(1, '#101010');
     draw();
     stage.classList.add('is-drawn');
     toggle.hidden = false;
@@ -150,39 +124,47 @@ function drawProjectGlobe(context) {
 }
 
 function drawCities(context, projection, cities, globeCenter, width, height) {
-  const narrow = width < 500;
-  const visibleLabels = [];
-  context.font = `600 ${narrow ? 11 : 14}px "Rethink Sans", Arial, sans-serif`;
+  const fontSize = width < 540 ? 11 : 13;
+  context.font = `500 ${fontSize}px "Rethink Sans", Arial, sans-serif`;
   context.textBaseline = 'middle';
+  const labels = [];
 
-  for (const city of cities) {
+  for (const [index, city] of cities.entries()) {
+    if (geoDistance(city.coordinates, globeCenter) > Math.PI * 0.475) continue;
     const [x, y] = projection(city.coordinates);
-    const edge = Math.min(x, width - x, y, height - y) / 16;
-    const opacity = Math.max(0, Math.min(1, edge, Math.cos(geoDistance(city.coordinates, globeCenter)) * 5));
-    if (opacity === 0) continue;
-    const label = cityLabels.get(city.name);
-    const showLabel = label && !(narrow && city.name === 'Madrid');
-    context.globalAlpha = opacity;
+    if (x < 10 || x > width - 10 || y < 10 || y > height - 10) continue;
+
     context.beginPath();
-    context.arc(x, y, showLabel ? 3.2 : 1.8, 0, Math.PI * 2);
-    context.shadowBlur = showLabel ? 9 : 0;
-    context.shadowColor = '#eeeeee';
-    context.fillStyle = showLabel ? '#ffffff' : '#ababab';
+    context.arc(x, y, index < 3 ? 3.2 : 2.2, 0, Math.PI * 2);
+    context.shadowBlur = 12;
+    context.shadowColor = '#bdbdbd';
+    context.fillStyle = '#cdcdcd';
     context.fill();
     context.shadowBlur = 0;
-    if (showLabel) visibleLabels.push({ city, x, y, label, opacity });
-  }
 
-  for (const { city, x, y, label: [dx, dy], opacity } of visibleLabels) {
+    if (index >= (width < 540 ? 8 : 11)) continue;
     const textWidth = context.measureText(city.name).width;
-    const left = dx < 0 ? x + dx - textWidth : x + dx;
-    const labelX = Math.max(6, Math.min(width - textWidth - 6, left));
-    context.globalAlpha = opacity;
-    context.strokeStyle = '#111111';
-    context.lineWidth = 3;
-    context.strokeText(city.name, labelX, y + dy);
-    context.fillStyle = '#f6f6f6';
-    context.fillText(city.name, labelX, y + dy);
+    const side = index % 2 === 0 ? 1 : -1;
+    const offsets = [0, -21, 21, -42, 42, -63, 63];
+    for (const offset of offsets) {
+      const lineEnd = x + side * (width < 540 ? 26 : 42);
+      const left = side === 1 ? lineEnd + 6 : lineEnd - 6 - textWidth;
+      const top = y + offset - fontSize / 2;
+      const box = { left, right: left + textWidth, top, bottom: top + fontSize };
+      if (box.left < 8 || box.right > width - 8 || box.top < 8 || box.bottom > height - 8) continue;
+      if (labels.some((label) => box.left < label.right + 10 && box.right > label.left - 10
+        && box.top < label.bottom + 5 && box.bottom > label.top - 5)) continue;
+
+      labels.push(box);
+      context.beginPath();
+      context.moveTo(x, y);
+      context.lineTo(x + side * 12, y + offset);
+      context.lineTo(lineEnd, y + offset);
+      context.strokeStyle = '#bcbcbc76';
+      context.stroke();
+      context.fillStyle = '#e4e4e4';
+      context.fillText(city.name, left, y + offset);
+      break;
+    }
   }
-  context.globalAlpha = 1;
 }
