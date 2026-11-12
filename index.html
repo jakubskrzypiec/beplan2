@@ -7,8 +7,9 @@
   <meta name="description" content="BEPLAN Design + Build. Integrated architecture, interior design and turnkey workspaces across EMEA.">
   <title>BEPLAN — Design + Build</title>
   <link rel="preload" href="assets/rethink-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=2">
+  <script src="main.js?v=2" defer></script>
+  <script type="module" src="globe.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -73,11 +74,12 @@
     </section>
 
     <section class="expertise wrap" id="expertise" aria-labelledby="expertise-title">
-      <div class="expertise-intro">
+      <div class="expertise-intro" data-reveal>
         <p class="section-label">Our expertise</p>
         <h2 class="statement" id="expertise-title">From concept<br>to completion.</h2>
+        <p class="section-description">We design, manage and deliver workplace projects, from the first brief to the day you move in.</p>
       </div>
-      <div class="service-list">
+      <div class="service-list" data-reveal>
         <details name="expertise">
           <summary>Architecture &amp; Interior Design <span class="arrow" aria-hidden="true"></span></summary>
           <p>We design workspaces around how teams work, from the first concept and space plan to detailed construction drawings.</p>
@@ -98,21 +100,102 @@
     </section>
 
     <section class="international" id="international" aria-labelledby="international-title">
-      <div class="map" aria-hidden="true"></div>
-      <div class="wrap international-content">
+      <div class="map" aria-hidden="true"><canvas id="project-globe"></canvas></div>
+      <div class="wrap international-content" data-reveal>
         <p class="section-label">International experience</p>
         <h2 class="statement" id="international-title">One partner.<br>Multiple markets.</h2>
-        <p class="markets">Poland · Europe · Middle East · Africa</p>
+        <p class="section-description">One vision. Multiple markets. Consistent quality. We bring the same design and construction team to projects across Poland, Europe, the Middle East and Africa.</p>
+        <div class="map-actions">
+          <details class="locations">
+            <summary>Explore project cities <span class="arrow" aria-hidden="true"></span></summary>
+            <ul class="project-cities">
+              <li><a href="https://beplan.pl/projects/glovo-headquarters-warsaw/" data-coordinates="21.01,52.23">Warsaw</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-offices-dubai-uae/" data-coordinates="55.27,25.20">Dubai</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-academy-africa-johannesburg-south-africa/" data-coordinates="28.05,-26.20">Johannesburg</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-headquarters/" data-coordinates="2.35,48.86">Paris</a></li>
+              <li><a href="https://beplan.pl/projects/bd-promotors-offices-barcelona/" data-coordinates="2.17,41.39">Barcelona</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-headquarters-lisbon/" data-coordinates="-9.14,38.72">Lisbon</a></li>
+              <li><a href="https://beplan.pl/projects/transporeon-poland/" data-coordinates="19.94,50.06">Kraków</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-center-lljubljana-slovenia/" data-coordinates="14.51,46.06">Ljubljana</a></li>
+              <li><a href="https://beplan.pl/projects/iwg-coworking/" data-coordinates="-0.38,39.47">Valencia</a></li>
+              <li><a href="https://beplan.pl/projects/restaurant-el-madrono-terminal-4-madrid/" data-coordinates="-3.70,40.42">Madrid</a></li>
+              <li><a href="https://beplan.pl/projects/house-c/" data-coordinates="-4.42,36.72">Málaga</a></li>
+              <li><a href="https://beplan.pl/projects/pzu/" data-coordinates="17.04,51.11">Wrocław</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss/" data-coordinates="16.93,52.41">Poznań</a></li>
+              <li><a href="https://beplan.pl/projects/pbt/" data-coordinates="19.46,51.77">Łódź</a></li>
+              <li><a href="https://beplan.pl/projects/mbank-lb/" data-coordinates="18.65,54.35">Gdańsk</a></li>
+            </ul>
+          </details>
+          <button class="globe-toggle" type="button" hidden>Pause globe</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-inner" data-reveal>
+        <div>
+          <p class="section-label">Get in touch</p>
+          <h2 class="statement" id="contact-title">Let’s build<br>something great.</h2>
+          <p class="section-description">Tell us what you’re planning. We’ll talk through your space, timeline and next steps.</p>
+        </div>
+        <div class="contact-action">
+          <p>Warsaw · Valencia</p>
+          <a class="button" href="#contact-form">Start a conversation <span class="arrow" aria-hidden="true"></span></a>
+        </div>
+      </div>
+
+      <div class="wrap contact-grid">
+        <div class="contact-offices" data-reveal>
+          <h2>Our offices</h2>
+          <address>
+            <h3>Warsaw</h3>
+            <p>Wschodnia 5, 05-090, Poland</p>
+            <a href="tel:+48666244516">+48 666 244 516</a>
+            <a href="mailto:i.molnar@beplan.pl">i.molnar@beplan.pl</a>
+          </address>
+          <address>
+            <h3>Valencia</h3>
+            <p>Av. Francia 47, Valencia, Spain</p>
+            <a href="tel:+34618567136">+34 618 567 136</a>
+            <a href="mailto:i.molnar@beplan360.com">i.molnar@beplan360.com</a>
+          </address>
+        </div>
+
+        <div class="contact-panel" id="contact-form" data-reveal>
+          <h2>Tell us about your project</h2>
+          <form class="enquiry" action="mailto:i.molnar@beplan.pl" method="post" enctype="text/plain">
+            <div class="enquiry-fields">
+              <label>Name<input name="name" autocomplete="name" maxlength="120" required></label>
+              <label>Work email<input name="email" type="email" autocomplete="email" maxlength="150" required></label>
+              <label>Company <span>(optional)</span><input name="company" autocomplete="organization" maxlength="150"></label>
+              <label>Project location <span>(optional)</span><input name="location" maxlength="150"></label>
+            </div>
+            <label>What are you planning?<textarea name="message" rows="5" maxlength="1500" required></textarea></label>
+            <div class="enquiry-submit">
+              <button class="button" type="submit" aria-describedby="enquiry-help">Open email draft <span class="arrow" aria-hidden="true"></span></button>
+              <p id="enquiry-help">Send the draft from your email app, or use <a href="https://beplan.pl/#contact-anchor">BEPLAN’s online contact form</a>.</p>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="contact" id="contact" aria-labelledby="contact-title">
-    <div class="wrap contact-inner">
-      <h2 class="statement" id="contact-title">Let’s build<br>something great.</h2>
-      <div class="contact-action">
-        <p>Warsaw · Valencia</p>
-        <a class="button" href="mailto:i.molnar@beplan.pl">Start a conversation <span class="arrow" aria-hidden="true"></span></a>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="./" aria-label="BEPLAN Design and Build home">
+        <span class="brand-name">BEPLAN</span>
+        <span class="brand-service">Design + Build</span>
+      </a>
+      <nav aria-label="Footer">
+        <a href="#projects">Projects</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#international">International</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="footer-legal">
+        <span>© BEPLAN Design + Build</span>
+        <a href="https://beplan.pl/privacy-policy/">Privacy policy</a>
       </div>
     </div>
   </footer>

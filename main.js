@@ -129,3 +129,40 @@ window.addEventListener('scroll', requestHeroFrame, { passive: true });
 window.addEventListener('resize', requestHeroFrame);
 reducedMotion.addEventListener('change', updateHeroMotion);
 updateHeroMotion();
+
+// The sticky hero adds scroll distance after the browser reads the initial URL.
+const initialTarget = document.getElementById(window.location.hash.slice(1));
+if (initialTarget && heroStory.classList.contains('is-scroll-video')) {
+  requestAnimationFrame(() => initialTarget.scrollIntoView({ behavior: 'instant' }));
+}
+
+const enquiry = document.querySelector('.enquiry');
+enquiry.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const fields = new FormData(enquiry);
+  const body = [
+    fields.get('message').trim(),
+    '',
+    'Name: ' + fields.get('name').trim(),
+    'Email: ' + fields.get('email').trim(),
+    'Company: ' + fields.get('company').trim(),
+    'Project location: ' + fields.get('location').trim(),
+  ].join('\r\n');
+  const subject = encodeURIComponent('BEPLAN project enquiry');
+  window.location.href = enquiry.getAttribute('action') + '?subject=' + subject + '&body=' + encodeURIComponent(body);
+});
+
+if ('IntersectionObserver' in window && !reducedMotion.matches) {
+  const reveal = new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      observer.unobserve(entry.target);
+      if (reducedMotion.matches || entry.target.matches(':focus-within')) continue;
+      entry.target.animate(
+        [{ opacity: 0, transform: 'translateY(22px)' }, { opacity: 1, transform: 'translateY(0)' }],
+        { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' },
+      );
+    }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('[data-reveal]').forEach((element) => reveal.observe(element));
+}
