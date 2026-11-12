@@ -33,12 +33,18 @@ updateLayout();
 const heroStory = document.querySelector('.hero-story');
 const hero = heroStory.querySelector('.hero');
 const heroVideo = heroStory.querySelector('video');
+const heroEndFrame = heroStory.querySelector('.hero-end-frame');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const heroFrameRate = 24;
-const heroPlaybackEnd = 0.86;
+const heroPlaybackEnd = 0.78;
 let heroFrameRequest = null;
 let heroProgress = null;
 let heroFrameTime = null;
+
+function smoothStep(value) {
+  const progress = Math.max(0, Math.min(1, value));
+  return progress * progress * (3 - 2 * progress);
+}
 
 function updateHeroFrame(timestamp) {
   heroFrameRequest = null;
@@ -62,16 +68,25 @@ function updateHeroFrame(timestamp) {
       : heroProgress + remaining * (1 - Math.exp(-elapsed / 75));
   }
 
-  // Finish the shot before the sticky section releases so its last frame can
-  // carry the transition into the projects section.
   const playback = Math.min(1, heroProgress / heroPlaybackEnd);
-  const time = Math.round(playback * lastFrame) / heroFrameRate;
-  const fade = Math.max(0, (heroProgress - 0.76) / 0.24);
-  hero.style.setProperty('--hero-fade', String(fade * fade * (3 - 2 * fade)));
+  // Keep a steady pace, then slow the camera to a stop over the final stretch.
+  const brakingLength = 0.32;
+  const braking = Math.max(0, (playback - (1 - brakingLength)) / brakingLength);
+  const easedPlayback = (playback - brakingLength * braking * braking / 2) / (1 - brakingLength / 2);
+  const time = Math.round(easedPlayback * lastFrame) / heroFrameRate;
 
   if (!heroVideo.seeking && Math.abs(heroVideo.currentTime - time) >= 0.5 / heroFrameRate) {
     heroVideo.currentTime = time;
   }
+
+  const intro = 1 - smoothStep((heroProgress - 0.06) / 0.16);
+  const finale = smoothStep((heroProgress - 0.70) / 0.14);
+  const copyOpacity = Math.max(intro, finale);
+  const showStill = playback === 1 && !heroVideo.seeking && heroEndFrame.complete && heroEndFrame.naturalWidth > 0;
+  hero.classList.toggle('is-showing-end-frame', showStill);
+  hero.classList.toggle('is-hero-copy-hidden', copyOpacity === 0);
+  hero.style.setProperty('--hero-copy', String(copyOpacity));
+  hero.style.setProperty('--hero-fade', String(smoothStep((heroProgress - 0.87) / 0.13)));
 
   if (heroProgress === target) heroFrameTime = null;
   else requestHeroFrame();
@@ -90,6 +105,8 @@ function updateHeroMotion() {
   if (!enabled) {
     heroProgress = null;
     heroFrameTime = null;
+    hero.classList.remove('is-showing-end-frame', 'is-hero-copy-hidden');
+    hero.style.removeProperty('--hero-copy');
     hero.style.removeProperty('--hero-fade');
     return;
   }
@@ -106,6 +123,7 @@ heroVideo.addEventListener('loadeddata', () => {
 });
 heroVideo.addEventListener('loadedmetadata', requestHeroFrame);
 heroVideo.addEventListener('seeked', requestHeroFrame);
+heroEndFrame.addEventListener('load', requestHeroFrame);
 heroVideo.addEventListener('error', updateHeroMotion);
 window.addEventListener('scroll', requestHeroFrame, { passive: true });
 window.addEventListener('resize', requestHeroFrame);
