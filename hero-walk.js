@@ -12,6 +12,10 @@ const lastFrame = 360;
 const frameRate = 24;
 const groupSize = 8;
 const walkEnd = 0.88;
+// Decoded frames kept around the playhead: more of them ahead in the scroll direction.
+const groupsAhead = lightweight ? 4 : 3;
+const groupsBehind = 1;
+const glide = 150;
 
 let frameBuffer;
 let usingVideo = false;
@@ -46,7 +50,7 @@ function render(now) {
   const delta = previousTime === null ? 16 : Math.min(now - previousTime, 50);
   previousTime = now;
   if (progress === null || target === 1 || Math.abs(progress - target) < 0.001) progress = target;
-  else progress += (target - progress) * (1 - Math.exp(-delta / 105));
+  else progress += (target - progress) * (1 - Math.exp(-delta / glide));
 
   if (target === 1) painted = null;
   else if (!frameBuffer && !usingVideo) {
@@ -70,8 +74,9 @@ function render(now) {
   if (target < 1 && frameBuffer) {
     const difference = wanted - (painted ?? wanted);
     if (difference) direction = Math.sign(difference);
-    const next = painted === null ? wanted : painted + direction * Math.min(Math.abs(difference), 3);
-    const image = frameBuffer.get(next, direction);
+    // Show the wanted frame, or the closest decoded one on the way to it, so fast scrolling never stalls.
+    const next = frameBuffer.nearest(wanted, painted, direction);
+    const image = next === null ? null : frameBuffer.image(next);
     if (image && painted !== next) {
       if (canvas.width !== image.width || canvas.height !== image.height) {
         canvas.width = image.width;
@@ -141,6 +146,7 @@ function createFrameBuffer(variant, onFrame, onError) {
   const packets = [];
   const images = new Map();
   const decodedGroups = new Set();
+  const dropped = new Set();
   let needed = [];
   let conversionJobs = [];
   let decoding = false;
@@ -153,8 +159,10 @@ function createFrameBuffer(variant, onFrame, onError) {
       conversionJobs.push(createImageBitmap(frame).then((image) => {
         if (closed || !needed.includes(group)) {
           image.close();
+          dropped.add(group);
           return;
         }
+        images.get(index)?.close();
         images.set(index, image);
         onFrame();
       }, fail).finally(() => frame.close()));
@@ -175,6 +183,7 @@ function createFrameBuffer(variant, onFrame, onError) {
 
     decoding = true;
     conversionJobs = [];
+    dropped.delete(group);
     try {
       const start = group * groupSize;
       const end = Math.min(start + groupSize, lastFrame + 1);
@@ -187,7 +196,7 @@ function createFrameBuffer(variant, onFrame, onError) {
       }
       await decoder.flush();
       await Promise.all(conversionJobs);
-      if (needed.includes(group)) decodedGroups.add(group);
+      if (needed.includes(group) && !dropped.has(group)) decodedGroups.add(group);
     } catch {
       fail();
     } finally {
@@ -202,10 +211,29 @@ function createFrameBuffer(variant, onFrame, onError) {
   }).catch(fail);
 
   return {
-    get(frame, direction) {
+    image(frame) {
+      return images.get(frame);
+    },
+    nearest(frame, from, direction) {
       const group = Math.floor(frame / groupSize);
-      const next = group + direction;
-      needed = [group, next].filter((index) => index >= 0 && index * groupSize <= lastFrame);
+      const wantedGroups = [group];
+      for (let step = 1; step <= groupsAhead; step++) wantedGroups.push(group + direction * step);
+      for (let step = 1; step <= groupsBehind; step++) wantedGroups.push(group - direction * step);
+      const next = wantedGroups.filter((index) => index >= 0 && index * groupSize <= lastFrame);
+      if (next.join() !== needed.join()) {
+        needed = next;
+        this.trim();
+        decodeNext();
+      }
+      if (images.has(frame)) return frame;
+      const step = from === null ? 0 : Math.sign(frame - from);
+      if (!step) return null;
+      for (let index = frame - step; index !== from; index -= step) {
+        if (images.has(index)) return index;
+      }
+      return null;
+    },
+    trim() {
       for (const [index, image] of images) {
         if (needed.includes(Math.floor(index / groupSize))) continue;
         image.close();
@@ -214,8 +242,6 @@ function createFrameBuffer(variant, onFrame, onError) {
       for (const index of decodedGroups) {
         if (!needed.includes(index)) decodedGroups.delete(index);
       }
-      decodeNext();
-      return images.get(frame);
     },
     close() {
       closed = true;

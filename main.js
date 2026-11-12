@@ -128,7 +128,7 @@ const requested = new URLSearchParams(location.search).get('lang') ?? savedLangu
   ?? (navigator.language?.toLowerCase().startsWith('pl') ? 'pl' : 'en');
 if (requested === 'pl') setLanguage('pl', false);
 
-document.querySelector('.lang-switch').addEventListener('click', (event) => {
+document.addEventListener('click', (event) => {
   const button = event.target.closest('[data-lang]');
   if (button) setLanguage(button.dataset.lang, true);
 });
