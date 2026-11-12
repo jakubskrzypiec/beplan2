@@ -16,6 +16,10 @@ const walkEnd = 0.88;
 const groupsAhead = lightweight ? 4 : 3;
 const groupsBehind = 1;
 const glide = 150;
+// The camera in the recording speeds up and slows down. This table spreads the frames over the scroll
+// distance by how far the picture moves, so fast passages get more room and slow ones less.
+// Entries are frame numbers at equal scroll steps, measured from the source video.
+const retime = [0, 7.1, 12.6, 17.2, 21, 24.1, 26.8, 29.1, 31.1, 33, 34.9, 37.2, 40.2, 45.4, 50.3, 54.9, 59.3, 63.3, 67.3, 71.4, 75.4, 79.2, 82.9, 86.3, 89.4, 92.3, 95, 97.4, 99.6, 101.7, 103.6, 105.5, 107.2, 109, 110.7, 112.4, 114.2, 115.9, 117.7, 119.4, 121.2, 122.9, 124.7, 126.6, 128.6, 130.8, 133.2, 135.7, 138.1, 140.4, 142.6, 144.7, 147, 149.4, 152.1, 155.3, 158.9, 163, 167.6, 172.4, 177.1, 181.3, 185.2, 189, 192.6, 195.8, 198.5, 201, 203.3, 205.5, 207.6, 209.7, 211.8, 214, 216.1, 218.3, 220.5, 222.8, 225.3, 228, 230.9, 234.3, 238.3, 243.5, 249.5, 255.5, 261.5, 270.3, 280.3, 290.3, 300.2, 310.2, 320.1, 330.1, 340.1, 350, 360];
 
 let frameBuffer;
 let usingVideo = false;
@@ -69,7 +73,9 @@ function render(now) {
   // Ease the last part of the route into a full stop without changing the scroll distance.
   const braking = Math.max(0, (position - 0.78) / 0.22);
   const clip = (position - 0.11 * braking * braking) / 0.89;
-  const wanted = Math.min(lastFrame, Math.round(clip * lastFrame));
+  const step = Math.max(0, clip) * (retime.length - 1);
+  const entry = Math.min(retime.length - 2, Math.floor(step));
+  const wanted = Math.min(lastFrame, Math.round(retime[entry] + (retime[entry + 1] - retime[entry]) * (step - entry)));
   let paintedNewFrame = false;
   if (target < 1 && frameBuffer) {
     const difference = wanted - (painted ?? wanted);
