@@ -32,7 +32,7 @@ function useVideo() {
   frameBuffer = null;
   usingVideo = true;
   video.preload = 'auto';
-  video.src = lightweight ? 'assets/hero-playback-mobile.mp4?v=9' : 'assets/hero-playback.mp4?v=9';
+  video.src = lightweight ? 'assets/hero-playback-mobile.mp4?v=11' : 'assets/hero-playback.mp4?v=11';
   requestRender();
 }
 
@@ -196,7 +196,7 @@ function createFrameBuffer(variant, onFrame, onError) {
     }
   }
 
-  readPackets(`assets/hero-walk-${variant}.bin`, controller.signal, (packet) => {
+  readPackets(`assets/hero-walk-${variant}.bin?v=11`, controller.signal, (packet) => {
     packets.push(packet);
     decodeNext();
   }).catch(fail);
