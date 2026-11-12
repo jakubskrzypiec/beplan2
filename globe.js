@@ -8,15 +8,9 @@ function drawProjectGlobe(context) {
   const stage = canvas.parentElement;
   const toggle = document.querySelector('.globe-toggle');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const cities = Array.from(document.querySelectorAll('[data-coordinates]'), (link, index) => ({
-    link,
+  const cities = Array.from(document.querySelectorAll('[data-coordinates]'), (link) => ({
     name: link.textContent.trim(),
     coordinates: link.dataset.coordinates.split(',').map(Number),
-    side: index % 2 === 0 ? 1 : -1,
-    dot: 0,
-    label: 0,
-    offset: null,
-    shift: 0,
   }));
   const countries = world.objects.countries;
   const projectCountries = new Set(['616', '724', '250', '620', '705', '784', '710']);
@@ -38,7 +32,6 @@ function drawProjectGlobe(context) {
   let request = null;
   let lastDraw = null;
   let elapsed = 0;
-  let step = 0;
 
   function stroke(shape, color) {
     context.beginPath();
@@ -74,8 +67,7 @@ function drawProjectGlobe(context) {
     fill(highlighted, '#bababa35');
     stroke(land, '#b1b1b168');
     stroke(borders, '#b1b1b169');
-    drawCities(context, projection, cities, [longitude, latitude], width, height, step);
-    step = 0;
+    drawCities(context, projection, cities, [longitude, latitude], width, height);
   }
 
   function resize() {
@@ -102,17 +94,16 @@ function drawProjectGlobe(context) {
       lastDraw = null;
       return;
     }
-    if (lastDraw !== null) {
-      step = Math.min(now - lastDraw, 64);
-      elapsed += step;
+    if (lastDraw === null || now - lastDraw >= 32) {
+      if (lastDraw !== null) elapsed += Math.min(now - lastDraw, 64);
+      lastDraw = now;
+      draw();
     }
-    lastDraw = now;
-    draw();
     request = requestAnimationFrame(tick);
   }
 
   function updateMotion() {
-    toggle.classList.toggle('is-paused', !running);
+    toggle.textContent = running ? 'Pause globe' : 'Play globe';
     if (lit && running && request === null) request = requestAnimationFrame(tick);
   }
 
@@ -129,48 +120,20 @@ function drawProjectGlobe(context) {
     updateMotion();
   }).observe(stage);
   new ResizeObserver(resize).observe(stage);
-  document.addEventListener('beplan:language', () => {
-    for (const city of cities) city.name = city.link.textContent.trim();
-    draw();
-  });
-  document.fonts?.ready.then(draw);
   updateMotion();
 }
 
-const labelOffsets = [0, -21, 21, -42, 42, -63, 63];
-
-function overlaps(box, labels, padX, padY) {
-  return labels.some((label) => box.left < label.right + padX && box.right > label.left - padX
-    && box.top < label.bottom + padY && box.bottom > label.top - padY);
-}
-
-// Each city keeps its side and label slot between frames. A label only moves when it would collide,
-// and then it glides to the new slot; cities entering or leaving the visible side fade.
-function drawCities(context, projection, cities, globeCenter, width, height, step) {
-  const compact = width < 540;
-  const fontSize = compact ? 11 : 13;
-  const reach = compact ? 26 : 42;
-  const ease = step ? 1 - Math.exp(-step / 220) : 1;
-  const fade = step ? step / 320 : 1;
+function drawCities(context, projection, cities, globeCenter, width, height) {
+  const fontSize = width < 540 ? 11 : 13;
   context.font = `500 ${fontSize}px "Rethink Sans", Arial, sans-serif`;
   context.textBaseline = 'middle';
   const labels = [];
 
   for (const [index, city] of cities.entries()) {
-    const distance = geoDistance(city.coordinates, globeCenter);
+    if (geoDistance(city.coordinates, globeCenter) > Math.PI * 0.475) continue;
     const [x, y] = projection(city.coordinates);
-    // A city already on screen stays until it is well past the edge, so it does not flicker there.
-    const edge = city.dot > 0 ? 2 : 10;
-    const visible = distance < Math.PI * (city.dot > 0 ? 0.49 : 0.47)
-      && x > edge && x < width - edge && y > edge && y < height - edge;
-    city.dot = Math.max(0, Math.min(1, city.dot + (visible ? fade : -fade)));
-    if (!city.dot) {
-      city.label = 0;
-      city.offset = null;
-      continue;
-    }
+    if (x < 10 || x > width - 10 || y < 10 || y > height - 10) continue;
 
-    context.globalAlpha = city.dot;
     context.beginPath();
     context.arc(x, y, index < 3 ? 3.2 : 2.2, 0, Math.PI * 2);
     context.shadowBlur = 12;
@@ -179,44 +142,29 @@ function drawCities(context, projection, cities, globeCenter, width, height, ste
     context.fill();
     context.shadowBlur = 0;
 
-    if (index >= (compact ? 8 : 11)) continue;
+    if (index >= (width < 540 ? 8 : 11)) continue;
     const textWidth = context.measureText(city.name).width;
-    const lineEnd = x + city.side * reach;
-    const left = city.side === 1 ? lineEnd + 6 : lineEnd - 6 - textWidth;
-    const boxAt = (offset) => {
+    const side = index % 2 === 0 ? 1 : -1;
+    const offsets = [0, -21, 21, -42, 42, -63, 63];
+    for (const offset of offsets) {
+      const lineEnd = x + side * (width < 540 ? 26 : 42);
+      const left = side === 1 ? lineEnd + 6 : lineEnd - 6 - textWidth;
       const top = y + offset - fontSize / 2;
-      return { left, right: left + textWidth, top, bottom: top + fontSize };
-    };
-    const fits = (box, keeping) => box.left >= 8 && box.right <= width - 8 && box.top >= 8 && box.bottom <= height - 8
-      && !overlaps(box, labels, keeping ? 4 : 10, keeping ? 1 : 5);
+      const box = { left, right: left + textWidth, top, bottom: top + fontSize };
+      if (box.left < 8 || box.right > width - 8 || box.top < 8 || box.bottom > height - 8) continue;
+      if (labels.some((label) => box.left < label.right + 10 && box.right > label.left - 10
+        && box.top < label.bottom + 5 && box.bottom > label.top - 5)) continue;
 
-    let offset = null;
-    if (visible) {
-      if (city.offset !== null && fits(boxAt(city.offset), true)) offset = city.offset;
-      else offset = labelOffsets.find((candidate) => fits(boxAt(candidate), false)) ?? null;
+      labels.push(box);
+      context.beginPath();
+      context.moveTo(x, y);
+      context.lineTo(x + side * 12, y + offset);
+      context.lineTo(lineEnd, y + offset);
+      context.strokeStyle = '#bcbcbc76';
+      context.stroke();
+      context.fillStyle = '#e4e4e4';
+      context.fillText(city.name, left, y + offset);
+      break;
     }
-    if (offset !== null) {
-      labels.push(boxAt(offset));
-      if (city.offset === null || !city.label) city.shift = offset;
-      city.offset = offset;
-    }
-    city.label = Math.max(0, Math.min(1, city.label + (offset !== null ? fade : -fade)));
-    if (!city.label) {
-      city.offset = null;
-      continue;
-    }
-    if (city.offset !== null) city.shift += (city.offset - city.shift) * ease;
-
-    const labelY = y + city.shift;
-    context.globalAlpha = Math.min(city.dot, city.label);
-    context.beginPath();
-    context.moveTo(x, y);
-    context.lineTo(x + city.side * 12, labelY);
-    context.lineTo(lineEnd, labelY);
-    context.strokeStyle = '#bcbcbc76';
-    context.stroke();
-    context.fillStyle = '#e4e4e4';
-    context.fillText(city.name, left, labelY);
   }
-  context.globalAlpha = 1;
 }

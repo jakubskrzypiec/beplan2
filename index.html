@@ -7,33 +7,27 @@
   <meta name="description" content="BEPLAN Design + Build. Integrated architecture, interior design and turnkey workspaces across EMEA.">
   <title>BEPLAN — Design + Build</title>
   <link rel="preload" href="assets/rethink-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=11">
-  <script src="main.js?v=11" defer></script>
-  <script type="module" src="hero-walk.js?v=11"></script>
-  <script type="module" src="globe.js?v=11"></script>
+  <link rel="stylesheet" href="styles.css?v=10">
+  <script src="main.js?v=9" defer></script>
+  <script type="module" src="hero-walk.js?v=9"></script>
+  <script type="module" src="globe.js?v=10"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="top">
     <div class="wrap header-inner">
       <a class="brand" href="./" aria-label="BEPLAN Design and Build home">
         <span class="brand-name">BEPLAN</span>
         <span class="brand-service">Design + Build</span>
       </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" hidden>Menu <span aria-hidden="true"></span></button>
       <nav class="navigation" id="primary-nav" aria-label="Primary">
-        <a href="#projects" data-i18n="nav.projects">Projects</a>
-        <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
-        <a href="#international" data-i18n="nav.international">International</a>
-        <a href="https://beplan.pl/#about-anchor" data-i18n="nav.studio">Studio</a>
-        <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <a href="#projects">Projects</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#international">International</a>
+        <a href="https://beplan.pl/#about-anchor">Studio</a>
+        <a href="#contact">Contact</a>
       </nav>
-      <div class="header-tools">
-        <div class="lang-switch" role="group" aria-label="Language / Język">
-          <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English">EN</button>
-          <button type="button" data-lang="pl" aria-pressed="false" lang="pl" aria-label="Polski">PL</button>
-        </div>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" hidden>Menu <span aria-hidden="true"></span></button>
-      </div>
     </div>
   </header>
 
@@ -50,87 +44,62 @@
           <img class="hero-walk-end" src="assets/hero-walk-end.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async">
         </div>
         <div class="wrap hero-content">
-          <h1 class="statement" id="hero-title" data-i18n="hero.title">We design.<br>We build.<br>We deliver.</h1>
+          <h1 class="statement" id="hero-title">We design.<br>We build.<br>We deliver.</h1>
           <div class="hero-actions">
-            <a class="button button-light" href="#projects"><span data-i18n="hero.explore">Explore projects</span><span class="button-icon" aria-hidden="true"></span></a>
-            <a class="button button-dark" href="#contact-form"><span data-i18n="hero.contact">Get in touch</span><span class="button-icon" aria-hidden="true"></span></a>
+            <a class="button button-light" href="#projects">Explore projects</a>
+            <a class="button button-dark" href="#contact-form">Get in touch</a>
           </div>
         </div>
-        <p class="hero-walk-hint"><span data-i18n="hero.hint">Scroll to explore</span><span class="hint-line" aria-hidden="true"></span></p>
-        <div class="hero-progress" aria-hidden="true"></div>
-      </div>
-    </section>
-
-    <section class="clients" aria-labelledby="clients-title">
-      <h2 class="clients-label wrap" id="clients-title" data-i18n="clients.title">Selected clients</h2>
-      <div class="marquee">
-        <ul class="marquee-track">
-          <li>Glovo</li><li>Zeiss</li><li>Transporeon</li><li>Groupon</li><li>PZU</li><li>mBank</li><li>IWG</li>
-        </ul>
+        <p class="hero-walk-hint">Scroll to explore</p>
       </div>
     </section>
 
     <section class="projects wrap" id="projects" aria-labelledby="projects-title">
-      <div class="section-head" data-reveal>
-        <div>
-          <p class="section-label" data-i18n="projects.label">Our work</p>
-          <h2 class="statement" id="projects-title" data-i18n="projects.title">Selected projects</h2>
-        </div>
-        <a class="text-link" href="https://beplan.pl/"><span data-i18n="projects.all">All projects</span><span class="button-icon" aria-hidden="true"></span></a>
-      </div>
+      <h2 class="statement" id="projects-title">Selected projects</h2>
       <div class="project-row">
-        <a class="project" href="https://beplan.pl/projects/glovo-headquarters-warsaw/" data-reveal>
+        <a class="project" href="https://beplan.pl/projects/glovo-headquarters-warsaw/">
           <img src="assets/glovo.webp" alt="" width="1080" height="608" loading="lazy">
-          <span class="project-meta"><span class="project-index">01</span><span class="project-type" data-i18n="type.hq">Headquarters</span></span>
-          <span class="project-open" aria-hidden="true"><span class="button-icon"></span></span>
-          <span class="project-caption"><span class="project-name">Glovo</span><span class="project-city" data-i18n="city.warsaw">Warsaw</span></span>
+          <span class="project-caption">Glovo / Warsaw</span>
         </a>
-        <a class="project" href="https://beplan.pl/projects/carl-zeiss-offices-dubai-uae/" data-reveal>
+        <a class="project" href="https://beplan.pl/projects/carl-zeiss-offices-dubai-uae/">
           <img src="assets/zeiss.webp" alt="" width="1080" height="608" loading="lazy">
-          <span class="project-meta"><span class="project-index">02</span><span class="project-type" data-i18n="type.offices">Offices</span></span>
-          <span class="project-open" aria-hidden="true"><span class="button-icon"></span></span>
-          <span class="project-caption"><span class="project-name">Zeiss</span><span class="project-city" data-i18n="city.dubai">Dubai</span></span>
+          <span class="project-caption">Zeiss / Dubai</span>
         </a>
       </div>
       <div class="project-row project-row-secondary">
-        <a class="project" href="https://beplan.pl/projects/transporeon-poland/" data-reveal>
+        <a class="project" href="https://beplan.pl/projects/transporeon-poland/">
           <img src="assets/transporeon.webp" alt="" width="1080" height="608" loading="lazy">
-          <span class="project-meta"><span class="project-index">03</span><span class="project-type" data-i18n="type.workplace">Workplace</span></span>
-          <span class="project-open" aria-hidden="true"><span class="button-icon"></span></span>
-          <span class="project-caption"><span class="project-name">Transporeon</span><span class="project-city" data-i18n="city.krakow">Kraków</span></span>
+          <span class="project-caption">Transporeon / Kraków</span>
         </a>
-        <a class="project" href="https://beplan.pl/projects/groupon-headquarters-6th-floor/" data-reveal>
+        <a class="project" href="https://beplan.pl/projects/groupon-headquarters-6th-floor/">
           <img src="assets/groupon.webp" alt="" width="1080" height="608" loading="lazy">
-          <span class="project-meta"><span class="project-index">04</span><span class="project-type" data-i18n="type.hq">Headquarters</span></span>
-          <span class="project-open" aria-hidden="true"><span class="button-icon"></span></span>
-          <span class="project-caption"><span class="project-name">Groupon</span><span class="project-city" data-i18n="city.warsaw">Warsaw</span></span>
+          <span class="project-caption">Groupon / Warsaw</span>
         </a>
       </div>
     </section>
 
     <section class="expertise wrap" id="expertise" aria-labelledby="expertise-title">
       <div class="expertise-intro" data-reveal>
-        <p class="section-label" data-i18n="expertise.label">Our expertise</p>
-        <h2 class="statement" id="expertise-title" data-i18n="expertise.title">From concept<br>to completion.</h2>
-        <p class="section-description" data-i18n="expertise.text">We design, manage and deliver workplace projects, from the first brief to the day you move in.</p>
-        <a class="button" href="#contact-form"><span data-i18n="expertise.cta">Discuss your project</span><span class="button-icon" aria-hidden="true"></span></a>
+        <p class="section-label">Our expertise</p>
+        <h2 class="statement" id="expertise-title">From concept<br>to completion.</h2>
+        <p class="section-description">We design, manage and deliver workplace projects, from the first brief to the day you move in.</p>
       </div>
       <div class="service-list" data-reveal>
-        <details name="expertise" open>
-          <summary><span class="service-title" data-i18n="service.1.title">Architecture &amp; Interior Design</span><span class="toggle-icon" aria-hidden="true"></span></summary>
-          <p data-i18n="service.1.text">We design workspaces around how teams work, from the first concept and space plan to detailed construction drawings.</p>
+        <details name="expertise">
+          <summary>Architecture &amp; Interior Design <span class="arrow" aria-hidden="true"></span></summary>
+          <p>We design workspaces around how teams work, from the first concept and space plan to detailed construction drawings.</p>
         </details>
         <details name="expertise">
-          <summary><span class="service-title" data-i18n="service.2.title">Design &amp; Build</span><span class="toggle-icon" aria-hidden="true"></span></summary>
-          <p data-i18n="service.2.text">One team takes the project from design through construction and fit-out, ready for your team to move in.</p>
+          <summary>Design &amp; Build <span class="arrow" aria-hidden="true"></span></summary>
+          <p>One team takes the project from design through construction and fit-out, ready for your team to move in.</p>
         </details>
         <details name="expertise">
-          <summary><span class="service-title" data-i18n="service.3.title">General Contracting</span><span class="toggle-icon" aria-hidden="true"></span></summary>
-          <p data-i18n="service.3.text">We coordinate contractors, trades and installation to deliver new and refurbished commercial interiors.</p>
+          <summary>General Contracting <span class="arrow" aria-hidden="true"></span></summary>
+          <p>We coordinate contractors, trades and installation to deliver new and refurbished commercial interiors.</p>
         </details>
         <details name="expertise">
-          <summary><span class="service-title" data-i18n="service.4.title">Project Management</span><span class="toggle-icon" aria-hidden="true"></span></summary>
-          <p data-i18n="service.4.text">We plan schedules, coordinate teams and oversee quality from the start of the project through handover.</p>
+          <summary>Project Management <span class="arrow" aria-hidden="true"></span></summary>
+          <p>We plan schedules, coordinate teams and oversee quality from the start of the project through handover.</p>
         </details>
       </div>
     </section>
@@ -138,29 +107,24 @@
     <section class="international" id="international" aria-labelledby="international-title">
       <div class="map" aria-hidden="true"><canvas id="project-globe"></canvas></div>
       <div class="wrap international-content" data-reveal>
-        <p class="section-label" data-i18n="intl.label">International experience</p>
-        <h2 class="statement" id="international-title" data-i18n="intl.title">One partner.<br>Multiple markets.</h2>
-        <p class="section-description" data-i18n="intl.text">One vision. Multiple markets. Consistent quality. We bring the same design and construction team to projects across Poland, Europe, the Middle East and Africa.</p>
-        <dl class="reach">
-          <div><dd>20</dd><dt data-i18n="intl.cities">project cities</dt></div>
-          <div><dd>7</dd><dt data-i18n="intl.countries">countries</dt></div>
-          <div><dd>3</dd><dt data-i18n="intl.continents">continents</dt></div>
-        </dl>
+        <p class="section-label">International experience</p>
+        <h2 class="statement" id="international-title">One partner.<br>Multiple markets.</h2>
+        <p class="section-description">One vision. Multiple markets. Consistent quality. We bring the same design and construction team to projects across Poland, Europe, the Middle East and Africa.</p>
         <div class="map-actions">
           <details class="locations">
-            <summary><span data-i18n="intl.explore">Explore project cities</span><span class="toggle-icon" aria-hidden="true"></span></summary>
+            <summary>Explore project cities <span class="arrow" aria-hidden="true"></span></summary>
             <ul class="project-cities">
-              <li><a href="https://beplan.pl/projects/glovo-headquarters-warsaw/" data-coordinates="21.01,52.23" data-i18n="city.warsaw">Warsaw</a></li>
-              <li><a href="https://beplan.pl/projects/carl-zeiss-offices-dubai-uae/" data-coordinates="55.27,25.20" data-i18n="city.dubai">Dubai</a></li>
+              <li><a href="https://beplan.pl/projects/glovo-headquarters-warsaw/" data-coordinates="21.01,52.23">Warsaw</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-offices-dubai-uae/" data-coordinates="55.27,25.20">Dubai</a></li>
               <li><a href="https://beplan.pl/projects/carl-zeiss-academy-africa-johannesburg-south-africa/" data-coordinates="28.05,-26.20">Johannesburg</a></li>
-              <li><a href="https://beplan.pl/projects/carl-zeiss-headquarters/" data-coordinates="2.35,48.86" data-i18n="city.paris">Paris</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-headquarters/" data-coordinates="2.35,48.86">Paris</a></li>
               <li><a href="https://beplan.pl/projects/bd-promotors-offices-barcelona/" data-coordinates="2.17,41.39">Barcelona</a></li>
-              <li><a href="https://beplan.pl/projects/carl-zeiss-headquarters-lisbon/" data-coordinates="-9.14,38.72" data-i18n="city.lisbon">Lisbon</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-headquarters-lisbon/" data-coordinates="-9.14,38.72">Lisbon</a></li>
               <li><a href="https://beplan.pl/projects/transporeon-poland/" data-coordinates="19.94,50.06">Kraków</a></li>
-              <li><a href="https://beplan.pl/projects/carl-zeiss-center-lljubljana-slovenia/" data-coordinates="14.51,46.06" data-i18n="city.ljubljana">Ljubljana</a></li>
-              <li><a href="https://beplan.pl/projects/iwg-coworking/" data-coordinates="-0.38,39.47" data-i18n="city.valencia">Valencia</a></li>
-              <li><a href="https://beplan.pl/projects/restaurant-el-madrono-terminal-4-madrid/" data-coordinates="-3.70,40.42" data-i18n="city.madrid">Madrid</a></li>
-              <li><a href="https://beplan.pl/projects/house-c/" data-coordinates="-4.42,36.72" data-i18n="city.malaga">Málaga</a></li>
+              <li><a href="https://beplan.pl/projects/carl-zeiss-center-lljubljana-slovenia/" data-coordinates="14.51,46.06">Ljubljana</a></li>
+              <li><a href="https://beplan.pl/projects/iwg-coworking/" data-coordinates="-0.38,39.47">Valencia</a></li>
+              <li><a href="https://beplan.pl/projects/restaurant-el-madrono-terminal-4-madrid/" data-coordinates="-3.70,40.42">Madrid</a></li>
+              <li><a href="https://beplan.pl/projects/house-c/" data-coordinates="-4.42,36.72">Málaga</a></li>
               <li><a href="https://beplan.pl/projects/pzu/" data-coordinates="17.04,51.11">Wrocław</a></li>
               <li><a href="https://beplan.pl/projects/carl-zeiss/" data-coordinates="16.93,52.41">Poznań</a></li>
               <li><a href="https://beplan.pl/projects/pbt/" data-coordinates="19.46,51.77">Łódź</a></li>
@@ -172,7 +136,7 @@
               <li><a href="https://beplan.pl/projects/residence-konstancin-jeziorna-poland/" data-coordinates="21.12,52.09">Konstancin-Jeziorna</a></li>
             </ul>
           </details>
-          <button class="globe-toggle" type="button" hidden><span class="globe-toggle-icon" aria-hidden="true"></span><span class="when-running" data-i18n="intl.pause">Pause globe</span><span class="when-paused" data-i18n="intl.play">Play globe</span></button>
+          <button class="globe-toggle" type="button" hidden>Pause globe</button>
         </div>
       </div>
     </section>
@@ -180,65 +144,59 @@
     <section class="contact" id="contact" aria-labelledby="contact-title">
       <div class="wrap contact-inner" data-reveal>
         <div>
-          <p class="section-label" data-i18n="contact.label">Get in touch</p>
-          <h2 class="statement" id="contact-title" data-i18n="contact.title">Let’s build<br>something great.</h2>
-          <p class="section-description" data-i18n="contact.text">Tell us what you’re planning. We’ll talk through your space, timeline and next steps.</p>
+          <p class="section-label">Get in touch</p>
+          <h2 class="statement" id="contact-title">Let’s build<br>something great.</h2>
+          <p class="section-description">Tell us what you’re planning. We’ll talk through your space, timeline and next steps.</p>
         </div>
         <div class="contact-action">
-          <a class="cta-circle" href="#contact-form"><span data-i18n="contact.cta">Start a conversation</span><span class="button-icon" aria-hidden="true"></span></a>
-          <p data-i18n="contact.offices">Warsaw · Valencia</p>
+          <p>Warsaw · Valencia</p>
+          <a class="button" href="#contact-form">Start a conversation</a>
         </div>
       </div>
 
       <div class="contact-interlude">
         <img src="assets/contact-interlude.webp" alt="" width="1920" height="640" fetchpriority="low" decoding="async">
         <div class="wrap interlude-content">
-          <p class="statement" data-i18n="interlude">Space for better work.</p>
+          <p class="statement">Space for better work.</p>
         </div>
       </div>
 
       <div class="wrap contact-panel" id="contact-form" data-reveal>
-        <div class="contact-panel-intro">
-          <p class="section-label" data-i18n="form.label">Contact</p>
-          <h2 class="statement" data-i18n="form.title">Tell us about<br>your project.</h2>
-          <p class="section-description" data-i18n="form.text">A short brief helps us understand the scope and how we can work together.</p>
-          <ul class="direct-contact">
-            <li><span data-i18n="form.email">Email</span><a href="mailto:i.molnar@beplan.pl">i.molnar@beplan.pl</a></li>
-            <li><span data-i18n="form.phone">Phone</span><a href="tel:+48666244516">+48 666 244 516</a></li>
-          </ul>
-        </div>
+        <p class="section-label">Contact</p>
+        <h2 class="statement">Tell us about<br>your project.</h2>
+        <p class="section-description">A short brief helps us understand the scope and how we can work together.</p>
         <form class="enquiry" action="mailto:i.molnar@beplan.pl" method="post" enctype="text/plain">
           <div class="enquiry-fields">
-            <label><span data-i18n="f.name">Full name</span><input name="name" autocomplete="name" placeholder="How should we address you?" data-i18n-placeholder="f.name.ph" maxlength="120" required></label>
-            <label><span data-i18n="f.email">Email</span><input name="email" type="email" autocomplete="email" placeholder="name@company.com" maxlength="150" required></label>
-            <label><span data-i18n="f.phone">Phone <i>(optional)</i></span><input name="phone" type="tel" autocomplete="tel" placeholder="+48 000 000 000" maxlength="40"></label>
-            <label><span data-i18n="f.type">Project type</span>
+            <label>Full name<input name="name" autocomplete="name" placeholder="How should we address you?" maxlength="120" required></label>
+            <label>Email<input name="email" type="email" autocomplete="email" placeholder="name@company.com" maxlength="150" required></label>
+            <label>Phone <span>(optional)</span><input name="phone" type="tel" autocomplete="tel" placeholder="+48 000 000 000" maxlength="40"></label>
+            <label>Project type
               <select name="projectType">
-                <option value="" data-i18n="f.type.0">Select a project type</option>
-                <option data-i18n="f.type.1">Office fit-out</option>
-                <option data-i18n="f.type.2">Retail or hospitality</option>
-                <option data-i18n="f.type.3">Refurbishment</option>
-                <option data-i18n="f.type.4">Other</option>
+                <option value="">Select a project type</option>
+                <option>Office fit-out</option>
+                <option>Retail or hospitality</option>
+                <option>Refurbishment</option>
+                <option>Other</option>
               </select>
             </label>
-            <label class="enquiry-third"><span data-i18n="f.location">Location</span><input name="location" placeholder="City or area" data-i18n-placeholder="f.location.ph" maxlength="150"></label>
-            <label class="enquiry-third"><span data-i18n="f.area">Floor area</span><input name="area" placeholder="e.g. 750 m²" data-i18n-placeholder="f.area.ph" maxlength="70"></label>
-            <label class="enquiry-third"><span data-i18n="f.start">Planned start</span>
+            <label class="enquiry-third">Location<input name="location" placeholder="City or area" maxlength="150"></label>
+            <label class="enquiry-third">Floor area<input name="area" placeholder="e.g. 750 m²" maxlength="70"></label>
+            <label class="enquiry-third">Planned start
               <select name="start">
-                <option value="" data-i18n="f.start.0">Select a time frame</option>
-                <option data-i18n="f.start.1">As soon as possible</option>
-                <option data-i18n="f.start.2">Within 3 months</option>
-                <option data-i18n="f.start.3">In 3 to 6 months</option>
-                <option data-i18n="f.start.4">In 6 months or later</option>
-                <option data-i18n="f.start.5">Still planning</option>
+                <option value="">Select a time frame</option>
+                <option>As soon as possible</option>
+                <option>Within 3 months</option>
+                <option>In 3 to 6 months</option>
+                <option>In 6 months or later</option>
+                <option>Still planning</option>
               </select>
             </label>
-            <label class="enquiry-message"><span data-i18n="f.message">A few words about your project</span><textarea name="message" rows="4" maxlength="1500" placeholder="What would you like to change, and what matters most to you?" data-i18n-placeholder="f.message.ph" required></textarea></label>
+            <label class="enquiry-message">A few words about your project<textarea name="message" rows="4" maxlength="1500" placeholder="What would you like to change, and what matters most to you?" required></textarea></label>
           </div>
-          <label class="enquiry-consent"><input type="checkbox" name="contactConsent" value="Yes" required> <span data-i18n="f.consent">I agree to be contacted about this enquiry.</span></label>
+          <label class="enquiry-consent"><input type="checkbox" name="contactConsent" value="Yes" required> I agree to be contacted about this enquiry.</label>
           <div class="enquiry-submit">
-            <button class="button button-light" type="submit" aria-describedby="enquiry-help"><span data-i18n="f.submit">Open email draft</span><span class="button-icon" aria-hidden="true"></span></button>
-            <p id="enquiry-help" data-i18n="f.help">Send the draft from your email app, or use <a href="https://beplan.pl/#contact-anchor">BEPLAN’s online contact form</a>.</p>
+            <button class="button" type="submit" aria-describedby="enquiry-help">Open email draft</button>
+            <p id="enquiry-help">Send the draft from your email app, or use <a href="https://beplan.pl/#contact-anchor">BEPLAN’s online contact form</a>.</p>
           </div>
         </form>
       </div>
@@ -254,34 +212,33 @@
             <span class="brand-name">BEPLAN</span>
             <span class="brand-service">Design + Build</span>
           </a>
-          <p data-i18n="footer.about">Architecture, design and fit-out for workplaces across Europe, the Middle East and Africa.</p>
+          <p>Architecture, design and fit-out for workplaces across Europe, the Middle East and Africa.</p>
         </div>
         <nav aria-label="Footer">
-          <p class="footer-label" data-i18n="footer.explore">Explore</p>
-          <a href="#projects" data-i18n="nav.projects">Projects</a>
-          <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
-          <a href="#international" data-i18n="nav.international">International</a>
-          <a href="https://beplan.pl/#about-anchor" data-i18n="nav.studio">Studio</a>
-          <a href="#contact-form" data-i18n="nav.contact">Contact</a>
+          <p class="footer-label">Explore</p>
+          <a href="#projects">Projects</a>
+          <a href="#expertise">Expertise</a>
+          <a href="#international">International</a>
+          <a href="https://beplan.pl/#about-anchor">Studio</a>
+          <a href="#contact-form">Contact</a>
         </nav>
         <address>
-          <p class="footer-label" data-i18n="city.warsaw">Warsaw</p>
-          <p data-i18n="footer.warsaw">Wschodnia 5, 05-090, Poland</p>
+          <p class="footer-label">Warsaw</p>
+          <p>Wschodnia 5, 05-090, Poland</p>
           <a href="tel:+48666244516">+48 666 244 516</a>
           <a href="mailto:i.molnar@beplan.pl">i.molnar@beplan.pl</a>
         </address>
         <address>
-          <p class="footer-label" data-i18n="city.valencia">Valencia</p>
-          <p data-i18n="footer.valencia">Av. Francia 47, Valencia, Spain</p>
+          <p class="footer-label">Valencia</p>
+          <p>Av. Francia 47, Valencia, Spain</p>
           <a href="tel:+34618567136">+34 618 567 136</a>
           <a href="mailto:i.molnar@beplan360.com">i.molnar@beplan360.com</a>
         </address>
       </div>
-      <p class="footer-wordmark" aria-hidden="true">BEPLAN</p>
       <div class="footer-legal">
         <span>© BEPLAN Design + Build</span>
-        <a href="https://beplan.pl/privacy-policy/" data-i18n="footer.privacy">Privacy policy</a>
-        <a class="footer-top" href="#top"><span data-i18n="footer.top">Back to top</span><span class="button-icon" aria-hidden="true"></span></a>
+        <a href="https://beplan.pl/privacy-policy/">Privacy policy</a>
+        <a class="footer-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
       </div>
     </div>
   </footer>
