@@ -266,11 +266,10 @@ button { font: inherit; color: inherit; }
   display: grid;
   align-items: center;
   min-height: clamp(540px, 47vw, 810px);
-  background: radial-gradient(ellipse at 74% 70%, #1d1d1d, #0c0c0c 64%);
+  background: radial-gradient(ellipse at 76% 48%, #12232b, #0b0b0b 70%);
   border-block: 1px solid #ffffff19;
 }
 .map { position: absolute; inset: 0 0 0 46.5%; z-index: -1; background: url("assets/markets.webp") no-repeat right center / cover; }
-.map:not(.is-drawn) { filter: grayscale(1); }
 .map.is-drawn { background: none; }
 .map canvas { display: block; width: 100%; height: 100%; }
 .international-content { padding-block: clamp(60px, 7vw, 120px); }

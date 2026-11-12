@@ -1,4 +1,4 @@
-import { feature, geoDistance, geoGraticule10, geoOrthographic, geoPath, mesh, world } from './assets/globe-geometry.js';
+import { feature, geoDistance, geoOrthographic, geoPath, mesh, world } from './assets/globe-geometry.js';
 
 const canvas = document.querySelector('#project-globe');
 const context = canvas.getContext('2d');
@@ -20,13 +20,7 @@ function drawProjectGlobe(context) {
   };
   const land = feature(world, world.objects.land);
   const borders = mesh(world, countries, (a, b) => a !== b);
-  const grid = geoGraticule10();
-  const focus = [18, 25];
-  const hub = cities[0].coordinates;
-  const routes = {
-    type: 'MultiLineString',
-    coordinates: cities.slice(1, 8).map((city) => [hub, city.coordinates]),
-  };
+  const focus = [14, 47];
   const projection = geoOrthographic().precision(0.8);
   const path = geoPath(projection, context);
   let width = 0;
@@ -34,17 +28,14 @@ function drawProjectGlobe(context) {
   let radius;
   let center;
   let globeShade;
-  let rimLight;
+  let depthShade;
+  let edgeFade;
   let labels = [];
   let lit = false;
   let running = !reducedMotion.matches;
   let request = null;
   let lastDraw = null;
   let elapsed = 0;
-  let targetLongitude = 0;
-  let targetLatitude = 0;
-  let pointerLongitude = 0;
-  let pointerLatitude = 0;
 
   function stroke(shape, color) {
     context.beginPath();
@@ -62,38 +53,28 @@ function drawProjectGlobe(context) {
 
   function draw() {
     if (!width || !height) return;
-    const longitude = focus[0] + 9 * Math.sin(elapsed / 11000) + pointerLongitude;
-    const latitude = focus[1] + pointerLatitude;
+    const longitude = focus[0] + 9 * Math.sin(elapsed / 13000);
+    const latitude = focus[1];
     projection.rotate([-longitude, -latitude]);
 
     context.clearRect(0, 0, width, height);
-    context.lineWidth = 1;
     context.beginPath();
     context.arc(...center, radius, 0, Math.PI * 2);
     context.fillStyle = globeShade;
     context.fill();
-    context.strokeStyle = rimLight;
-    context.shadowColor = '#e8e8e8';
-    context.shadowBlur = 16;
-    context.stroke();
-    context.shadowBlur = 0;
-
     context.lineWidth = 0.75;
-    context.setLineDash([1, 5]);
-    stroke(grid, '#ffffff1c');
-    context.setLineDash([]);
-    fill(land, '#ffffff0c');
-    fill(highlighted, '#ffffff2a');
-    stroke(land, '#ffffff62');
-    stroke(borders, '#ffffff4a');
-    context.lineWidth = 1.1;
-    stroke(routes, '#dddddd30');
-    context.setLineDash([3, 11]);
-    context.lineDashOffset = -elapsed / 110;
-    stroke(routes, '#f0f0f09c');
-    context.setLineDash([]);
-    context.lineDashOffset = 0;
-    drawCities(context, projection, cities, labels, [longitude, latitude], elapsed);
+    fill(land, '#4e766678');
+    fill(highlighted, '#85a88962');
+    stroke(land, '#8bb69b65');
+    stroke(borders, '#8bb69b32');
+    context.globalCompositeOperation = 'source-atop';
+    context.fillStyle = depthShade;
+    context.fillRect(0, 0, width, height);
+    context.globalCompositeOperation = 'destination-in';
+    context.fillStyle = edgeFade;
+    context.fillRect(0, 0, width, height);
+    context.globalCompositeOperation = 'source-over';
+    drawCities(context, projection, cities, labels, [longitude, latitude], width, height);
   }
 
   function resize() {
@@ -103,18 +84,22 @@ function drawProjectGlobe(context) {
     canvas.width = Math.round(width * scale);
     canvas.height = Math.round(height * scale);
     context.setTransform(scale, 0, 0, scale, 0, 0);
-    radius = Math.min(width * 0.57, height * 0.55);
-    center = [width * 0.55, height * 0.51];
+    radius = Math.min(width * 1.04, height * 1.12);
+    center = [width * 0.52, height * 0.47];
     projection.scale(radius).translate(center);
-    globeShade = context.createRadialGradient(center[0] - radius * 0.26, center[1] - radius * 0.43, 0, ...center, radius);
-    globeShade.addColorStop(0, '#292929');
-    globeShade.addColorStop(0.65, '#161616');
-    globeShade.addColorStop(1, '#080808');
-    rimLight = context.createLinearGradient(center[0] - radius, 0, center[0] + radius, height);
-    rimLight.addColorStop(0, '#f0f0f033');
-    rimLight.addColorStop(0.34, '#f0f0f0b3');
-    rimLight.addColorStop(0.72, '#f0f0f021');
-    rimLight.addColorStop(1, '#f0f0f008');
+    globeShade = context.createRadialGradient(center[0] - radius * 0.17, center[1] - radius * 0.2, 0, ...center, radius);
+    globeShade.addColorStop(0, '#20404b');
+    globeShade.addColorStop(0.52, '#10232e');
+    globeShade.addColorStop(1, '#080f15');
+    depthShade = context.createRadialGradient(center[0], center[1] - radius * 0.10, radius * 0.12,
+      center[0], center[1] - radius * 0.10, radius * 0.86);
+    depthShade.addColorStop(0, '#0000');
+    depthShade.addColorStop(0.55, '#03090f19');
+    depthShade.addColorStop(1, '#03090fa0');
+    edgeFade = context.createLinearGradient(0, 0, width, 0);
+    edgeFade.addColorStop(0, '#0000');
+    edgeFade.addColorStop(0.18, '#000');
+    edgeFade.addColorStop(1, '#000');
     projection.rotate([-focus[0], -focus[1]]);
     labels = layoutLabels(cities, projection, width, height);
     draw();
@@ -129,11 +114,7 @@ function drawProjectGlobe(context) {
       return;
     }
     if (lastDraw === null || now - lastDraw >= 32) {
-      const delta = lastDraw === null ? 32 : Math.min(now - lastDraw, 64);
-      const follow = 1 - Math.exp(-delta / 240);
-      pointerLongitude += (targetLongitude - pointerLongitude) * follow;
-      pointerLatitude += (targetLatitude - pointerLatitude) * follow;
-      elapsed += delta;
+      if (lastDraw !== null) elapsed += Math.min(now - lastDraw, 64);
       lastDraw = now;
       draw();
     }
@@ -149,27 +130,8 @@ function drawProjectGlobe(context) {
     running = !running;
     updateMotion();
   });
-  const section = stage.closest('.international');
-  section.addEventListener('pointermove', (event) => {
-    if (event.pointerType !== 'mouse' || reducedMotion.matches) return;
-    const bounds = stage.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width;
-    const y = (event.clientY - bounds.top) / bounds.height;
-    const overGlobe = x >= 0 && x <= 1 && y >= 0 && y <= 1;
-    targetLongitude = overGlobe ? (0.5 - x) * 38 : 0;
-    targetLatitude = overGlobe ? (y - 0.5) * 20 : 0;
-  }, { passive: true });
-  section.addEventListener('pointerleave', () => {
-    targetLongitude = 0;
-    targetLatitude = 0;
-  });
   reducedMotion.addEventListener('change', () => {
     running = !reducedMotion.matches;
-    if (reducedMotion.matches) {
-      targetLongitude = pointerLongitude = 0;
-      targetLatitude = pointerLatitude = 0;
-      draw();
-    }
     updateMotion();
   });
   new IntersectionObserver(([entry]) => {
@@ -182,16 +144,17 @@ function drawProjectGlobe(context) {
 
 function layoutLabels(cities, projection, width, height) {
   const narrow = width < 510;
-  const gap = narrow ? 28 : 44;
-  const margin = narrow ? 12 : 20;
+  const gap = narrow ? 24 : 32;
+  const margin = narrow ? 13 : 21;
   // Set the label positions once per resize. The leader lines follow the
   // projected points as the globe turns.
   const featured = new Set(narrow
-    ? ['Warsaw', 'Paris', 'Dubai', 'Johannesburg']
-    : ['Warsaw', 'Paris', 'Barcelona', 'Lisbon', 'Dubai', 'Johannesburg']);
+    ? ['Warsaw', 'Paris', 'Barcelona', 'Lisbon', 'Kraków', 'Gdańsk', 'Madrid', 'Ljubljana']
+    : ['Warsaw', 'Paris', 'Barcelona', 'Lisbon', 'Kraków', 'Gdańsk', 'Madrid', 'Ljubljana',
+      'Valencia', 'Málaga', 'Wrocław', 'Poznań', 'Łódź', 'Szczecin']);
   const selected = cities.filter((city) => featured.has(city.name));
   return [-1, 1].flatMap((side) => {
-    const column = selected.filter((city) => (city.coordinates[0] < 17 ? -1 : 1) === side)
+    const column = selected.filter((city) => (city.coordinates[0] < 12 ? -1 : 1) === side)
       .map((city) => ({ city, y: projection(city.coordinates)[1] }))
       .sort((a, b) => a.y - b.y);
     let nextRow = margin;
@@ -205,14 +168,17 @@ function layoutLabels(cities, projection, width, height) {
   });
 }
 
-function drawCities(context, projection, cities, labels, globeCenter, elapsed) {
-  const visibility = (city) => Math.max(0, Math.min(1, Math.cos(geoDistance(city.coordinates, globeCenter)) * 5));
+function drawCities(context, projection, cities, labels, globeCenter, width, height) {
+  const visibility = (city, x, y) => {
+    const edge = Math.min(x, width - x, y, height - y) / 28;
+    return Math.max(0, Math.min(1, edge, Math.cos(geoDistance(city.coordinates, globeCenter)) * 5));
+  };
   context.textBaseline = 'middle';
 
   for (const { city, x, y, side, fontSize } of labels) {
-    const opacity = visibility(city);
-    if (opacity === 0) continue;
     const [pointX, pointY] = projection(city.coordinates);
+    const opacity = visibility(city, pointX, pointY);
+    if (opacity === 0) continue;
     context.font = `500 ${fontSize}px "Rethink Sans", Arial, sans-serif`;
     context.textAlign = side === -1 ? 'left' : 'right';
     const textWidth = context.measureText(city.name).width;
@@ -222,35 +188,26 @@ function drawCities(context, projection, cities, labels, globeCenter, elapsed) {
     context.moveTo(lineStart, y);
     context.quadraticCurveTo(lineStart - side * 45, y, pointX, pointY);
     const leader = context.createLinearGradient(lineStart, y, pointX, pointY);
-    leader.addColorStop(0, '#ffffff10');
-    leader.addColorStop(0.76, '#ffffff36');
-    leader.addColorStop(1, '#ffffff76');
+    leader.addColorStop(0, '#e8bd7920');
+    leader.addColorStop(1, '#e8bd7975');
     context.strokeStyle = leader;
     context.stroke();
-    context.fillStyle = '#f0f0f0';
+    context.fillStyle = '#e9d5b1';
     context.fillText(city.name, x, y);
   }
 
   for (const [index, city] of cities.entries()) {
-    const opacity = visibility(city);
-    if (opacity === 0) continue;
     const [x, y] = projection(city.coordinates);
+    const opacity = visibility(city, x, y);
+    if (opacity === 0) continue;
     context.globalAlpha = opacity;
     context.beginPath();
-    context.arc(x, y, index === 0 ? 4 : 2.4, 0, Math.PI * 2);
+    context.arc(x, y, index === 0 ? 4 : 2, 0, Math.PI * 2);
     context.shadowBlur = 10;
-    context.shadowColor = '#fff';
-    context.fillStyle = '#f4f4f4';
+    context.shadowColor = '#e9ac61';
+    context.fillStyle = '#f3cd8c';
     context.fill();
     context.shadowBlur = 0;
-    if (index === 0) {
-      const pulse = (elapsed % 2300) / 2300;
-      context.globalAlpha = opacity * (1 - pulse) * 0.58;
-      context.beginPath();
-      context.arc(x, y, 7 + 18 * pulse, 0, Math.PI * 2);
-      context.strokeStyle = '#fff';
-      context.stroke();
-    }
   }
   context.globalAlpha = 1;
 }
