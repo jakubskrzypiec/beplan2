@@ -37,6 +37,7 @@ const heroEndFrame = heroStory.querySelector('.hero-end-frame');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const heroFrameRate = 24;
 const heroPlaybackEnd = 0.78;
+const heroTimeline = [[0, 0], [0.20, 0.225], [0.73, 0.68], [1, 1]];
 let heroFrameRequest = null;
 let heroProgress = null;
 let heroFrameTime = null;
@@ -44,6 +45,14 @@ let heroFrameTime = null;
 function smoothStep(value) {
   const progress = Math.max(0, Math.min(1, value));
   return progress * progress * (3 - 2 * progress);
+}
+
+function clipProgress(progress) {
+  // Give the fast turn through the reception more of the scroll distance.
+  const end = heroTimeline.findIndex(([scroll], index) => index > 0 && progress <= scroll);
+  const [startScroll, startClip] = heroTimeline[end - 1];
+  const [endScroll, endClip] = heroTimeline[end];
+  return startClip + (progress - startScroll) / (endScroll - startScroll) * (endClip - startClip);
 }
 
 function updateHeroFrame(timestamp) {
@@ -73,7 +82,7 @@ function updateHeroFrame(timestamp) {
   const brakingLength = 0.32;
   const braking = Math.max(0, (playback - (1 - brakingLength)) / brakingLength);
   const easedPlayback = (playback - brakingLength * braking * braking / 2) / (1 - brakingLength / 2);
-  const time = Math.round(easedPlayback * lastFrame) / heroFrameRate;
+  const time = Math.round(clipProgress(Math.min(1, easedPlayback)) * lastFrame) / heroFrameRate;
 
   if (!heroVideo.seeking && Math.abs(heroVideo.currentTime - time) >= 0.5 / heroFrameRate) {
     heroVideo.currentTime = time;
@@ -112,7 +121,7 @@ function updateHeroMotion() {
   }
 
   if (!heroVideo.hasAttribute('src')) {
-    heroVideo.src = compactLayout.matches ? 'assets/hero-scroll-mobile.mp4' : 'assets/hero-scroll.mp4';
+    heroVideo.src = compactLayout.matches ? 'assets/hero-scroll-mobile.mp4?v=3' : 'assets/hero-scroll.mp4?v=3';
   }
   requestHeroFrame();
 }
@@ -140,13 +149,23 @@ const enquiry = document.querySelector('.enquiry');
 enquiry.addEventListener('submit', (event) => {
   event.preventDefault();
   const fields = new FormData(enquiry);
+  const details = [
+    ['Name', 'name'],
+    ['Email', 'email'],
+    ['Phone', 'phone'],
+    ['Project type', 'projectType'],
+    ['Project location', 'location'],
+    ['Floor area', 'area'],
+    ['Planned start', 'start'],
+    ['Contact consent', 'contactConsent'],
+  ].flatMap(([label, name]) => {
+    const value = fields.get(name)?.trim();
+    return value ? [label + ': ' + value] : [];
+  });
   const body = [
     fields.get('message').trim(),
     '',
-    'Name: ' + fields.get('name').trim(),
-    'Email: ' + fields.get('email').trim(),
-    'Company: ' + fields.get('company').trim(),
-    'Project location: ' + fields.get('location').trim(),
+    ...details,
   ].join('\r\n');
   const subject = encodeURIComponent('BEPLAN project enquiry');
   window.location.href = enquiry.getAttribute('action') + '?subject=' + subject + '&body=' + encodeURIComponent(body);

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101110">
+  <meta name="theme-color" content="#0b0b0b">
   <meta name="description" content="BEPLAN Design + Build. Integrated architecture, interior design and turnkey workspaces across EMEA.">
   <title>BEPLAN — Design + Build</title>
   <link rel="preload" href="assets/rethink-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=2">
-  <script src="main.js?v=2" defer></script>
-  <script type="module" src="globe.js"></script>
+  <link rel="stylesheet" href="styles.css?v=3">
+  <script src="main.js?v=3" defer></script>
+  <script type="module" src="globe.js?v=3"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -35,11 +35,11 @@
       <div class="hero">
         <div class="hero-media" aria-hidden="true">
           <picture>
-            <source media="(max-width: 760px)" srcset="assets/hero-mobile.webp">
-            <img src="assets/hero.webp" alt="" width="1440" height="810" fetchpriority="high">
+            <source media="(max-width: 760px)" srcset="assets/hero-mobile.webp?v=3">
+            <img src="assets/hero.webp?v=3" alt="" width="1920" height="1080" fetchpriority="high">
           </picture>
           <video class="hero-scroll-video" muted playsinline preload="auto"></video>
-          <img class="hero-end-frame" src="assets/hero-finale.webp" alt="" width="1440" height="810" loading="lazy" decoding="async">
+          <img class="hero-end-frame" src="assets/hero-finale.webp?v=3" alt="" width="1920" height="1080" loading="lazy" decoding="async">
         </div>
         <div class="wrap hero-content">
           <h1 id="hero-title">We design.<br>We build.<br>We deliver.</h1>
@@ -144,39 +144,64 @@
         </div>
       </div>
 
-      <div class="wrap contact-grid">
-        <div class="contact-offices" data-reveal>
-          <h2>Our offices</h2>
-          <address>
-            <h3>Warsaw</h3>
-            <p>Wschodnia 5, 05-090, Poland</p>
-            <a href="tel:+48666244516">+48 666 244 516</a>
-            <a href="mailto:i.molnar@beplan.pl">i.molnar@beplan.pl</a>
-          </address>
-          <address>
-            <h3>Valencia</h3>
-            <p>Av. Francia 47, Valencia, Spain</p>
-            <a href="tel:+34618567136">+34 618 567 136</a>
-            <a href="mailto:i.molnar@beplan360.com">i.molnar@beplan360.com</a>
-          </address>
-        </div>
+      <div class="contact-interlude" aria-hidden="true">
+        <img src="assets/contact-interlude.webp" alt="" width="1920" height="640" loading="lazy" decoding="async">
+      </div>
 
-        <div class="contact-panel" id="contact-form" data-reveal>
-          <h2>Tell us about your project</h2>
-          <form class="enquiry" action="mailto:i.molnar@beplan.pl" method="post" enctype="text/plain">
-            <div class="enquiry-fields">
-              <label>Name<input name="name" autocomplete="name" maxlength="120" required></label>
-              <label>Work email<input name="email" type="email" autocomplete="email" maxlength="150" required></label>
-              <label>Company <span>(optional)</span><input name="company" autocomplete="organization" maxlength="150"></label>
-              <label>Project location <span>(optional)</span><input name="location" maxlength="150"></label>
-            </div>
-            <label>What are you planning?<textarea name="message" rows="5" maxlength="1500" required></textarea></label>
-            <div class="enquiry-submit">
-              <button class="button" type="submit" aria-describedby="enquiry-help">Open email draft <span class="arrow" aria-hidden="true"></span></button>
-              <p id="enquiry-help">Send the draft from your email app, or use <a href="https://beplan.pl/#contact-anchor">BEPLAN’s online contact form</a>.</p>
-            </div>
-          </form>
-        </div>
+      <div class="wrap contact-panel" id="contact-form" data-reveal>
+        <p class="section-label">Contact</p>
+        <h2>Tell us about your project.</h2>
+        <p class="section-description">A short brief helps us understand the scope and how we can work together.</p>
+        <form class="enquiry" action="mailto:i.molnar@beplan.pl" method="post" enctype="text/plain">
+          <div class="enquiry-fields">
+            <label>Full name<input name="name" autocomplete="name" placeholder="How should we address you?" maxlength="120" required></label>
+            <label>Email<input name="email" type="email" autocomplete="email" placeholder="name@company.com" maxlength="150" required></label>
+            <label>Phone <span>(optional)</span><input name="phone" type="tel" autocomplete="tel" placeholder="+48 000 000 000" maxlength="40"></label>
+            <label>Project type
+              <select name="projectType">
+                <option value="">Select a project type</option>
+                <option>Office fit-out</option>
+                <option>Retail or hospitality</option>
+                <option>Refurbishment</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label class="enquiry-third">Location<input name="location" placeholder="City or area" maxlength="150"></label>
+            <label class="enquiry-third">Floor area<input name="area" placeholder="e.g. 750 m²" maxlength="70"></label>
+            <label class="enquiry-third">Planned start
+              <select name="start">
+                <option value="">Select a time frame</option>
+                <option>As soon as possible</option>
+                <option>Within 3 months</option>
+                <option>In 3 to 6 months</option>
+                <option>In 6 months or later</option>
+                <option>Still planning</option>
+              </select>
+            </label>
+            <label class="enquiry-message">A few words about your project<textarea name="message" rows="4" maxlength="1500" placeholder="What would you like to change, and what matters most to you?" required></textarea></label>
+          </div>
+          <label class="enquiry-consent"><input type="checkbox" name="contactConsent" value="Yes" required> I agree to be contacted about this enquiry.</label>
+          <div class="enquiry-submit">
+            <button class="button" type="submit" aria-describedby="enquiry-help">Open email draft <span class="arrow" aria-hidden="true"></span></button>
+            <p id="enquiry-help">Send the draft from your email app, or use <a href="https://beplan.pl/#contact-anchor">BEPLAN’s online contact form</a>.</p>
+          </div>
+        </form>
+      </div>
+
+      <div class="wrap contact-offices" data-reveal>
+        <h2>Our offices</h2>
+        <address>
+          <h3>Warsaw</h3>
+          <p>Wschodnia 5, 05-090, Poland</p>
+          <a href="tel:+48666244516">+48 666 244 516</a>
+          <a href="mailto:i.molnar@beplan.pl">i.molnar@beplan.pl</a>
+        </address>
+        <address>
+          <h3>Valencia</h3>
+          <p>Av. Francia 47, Valencia, Spain</p>
+          <a href="tel:+34618567136">+34 618 567 136</a>
+          <a href="mailto:i.molnar@beplan360.com">i.molnar@beplan360.com</a>
+        </address>
       </div>
     </section>
   </main>

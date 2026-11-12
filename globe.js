@@ -60,17 +60,17 @@ function drawProjectGlobe(context) {
     context.arc(...center, radius, 0, Math.PI * 2);
     context.fillStyle = globeShade;
     context.fill();
-    context.strokeStyle = '#a2917545';
+    context.strokeStyle = '#93939345';
     context.stroke();
 
     context.lineWidth = 0.75;
     context.setLineDash([1, 5]);
-    stroke(grid, '#a4937440');
+    stroke(grid, '#94949440');
     context.setLineDash([]);
-    fill(land, '#b7a28613');
-    fill(highlighted, '#e7b56d35');
-    stroke(land, '#c5af8a68');
-    stroke(borders, '#c5af8a69');
+    fill(land, '#a4a4a413');
+    fill(highlighted, '#bababa35');
+    stroke(land, '#b1b1b168');
+    stroke(borders, '#b1b1b169');
     drawCities(context, projection, cities, [longitude, latitude], width, height);
   }
 
@@ -81,12 +81,12 @@ function drawProjectGlobe(context) {
     canvas.width = Math.round(width * scale);
     canvas.height = Math.round(height * scale);
     context.setTransform(scale, 0, 0, scale, 0, 0);
-    radius = Math.min(width * 0.60, height * 0.74);
-    center = [width * 0.60, radius + height * 0.035];
+    radius = Math.min(width * 0.60, height * 0.70);
+    center = [width * 0.60, radius + height * 0.012];
     projection.scale(radius).translate(center);
     globeShade = context.createRadialGradient(center[0] - radius * 0.19, center[1] - radius * 0.4, 0, ...center, radius);
-    globeShade.addColorStop(0, '#30281d');
-    globeShade.addColorStop(1, '#10100e');
+    globeShade.addColorStop(0, '#292929');
+    globeShade.addColorStop(1, '#101010');
     draw();
     stage.classList.add('is-drawn');
     toggle.hidden = false;
@@ -141,8 +141,8 @@ function drawCities(context, projection, cities, globeCenter, width, height) {
     context.beginPath();
     context.arc(x, y, index < 3 ? 3.2 : 2.2, 0, Math.PI * 2);
     context.shadowBlur = 12;
-    context.shadowColor = '#eab67b';
-    context.fillStyle = '#f4c987';
+    context.shadowColor = '#bdbdbd';
+    context.fillStyle = '#cdcdcd';
     context.fill();
     context.shadowBlur = 0;
 
@@ -163,9 +163,9 @@ function drawCities(context, projection, cities, globeCenter, width, height) {
       context.moveTo(x, y);
       context.lineTo(x + side * 12, y + offset);
       context.lineTo(lineEnd, y + offset);
-      context.strokeStyle = '#e1b77e76';
+      context.strokeStyle = '#bcbcbc76';
       context.stroke();
-      context.fillStyle = '#f2e3ca';
+      context.fillStyle = '#e4e4e4';
       context.fillText(city.name, left, y + offset);
       break;
     }
