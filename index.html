@@ -7,9 +7,9 @@
   <meta name="description" content="BEPLAN Design + Build. Integrated architecture, interior design and turnkey workspaces across EMEA.">
   <title>BEPLAN — Design + Build</title>
   <link rel="preload" href="assets/rethink-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=7">
-  <script src="main.js?v=6" defer></script>
-  <script type="module" src="globe.js?v=7"></script>
+  <link rel="stylesheet" href="styles.css?v=8">
+  <script src="main.js?v=8" defer></script>
+  <script type="module" src="globe.js?v=8"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -38,8 +38,7 @@
             <source media="(max-width: 760px)" srcset="assets/hero-mobile.webp?v=4">
             <img src="assets/hero.webp?v=4" alt="" width="1920" height="1080" fetchpriority="high">
           </picture>
-          <canvas class="hero-scroll-frames"></canvas>
-          <img class="hero-end-frame" src="assets/hero-finale.webp?v=4" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <video class="hero-video" muted playsinline preload="none"></video>
         </div>
         <div class="wrap hero-content">
           <h1 class="statement" id="hero-title">We design.<br>We build.<br>We deliver.</h1>
@@ -48,6 +47,7 @@
             <a class="button button-dark" href="#contact-form">Get in touch</a>
           </div>
         </div>
+        <button class="hero-playback" type="button" hidden>Pause film</button>
       </div>
     </section>
 

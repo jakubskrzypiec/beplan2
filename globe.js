@@ -1,5 +1,15 @@
 import { feature, geoDistance, geoOrthographic, geoPath, mesh, world } from './assets/globe-geometry.js';
 
+const cityLabels = new Map([
+  ['Warsaw', [9, -8]],
+  ['Dubai', [-9, -8]],
+  ['Paris', [-9, -7]],
+  ['Barcelona', [8, -8]],
+  ['Lisbon', [8, -9]],
+  ['Madrid', [-7, 16]],
+  ['Ljubljana', [8, 10]],
+]);
+
 const canvas = document.querySelector('#project-globe');
 const context = canvas.getContext('2d');
 if (context) drawProjectGlobe(context);
@@ -20,7 +30,7 @@ function drawProjectGlobe(context) {
   };
   const land = feature(world, world.objects.land);
   const borders = mesh(world, countries, (a, b) => a !== b);
-  const focus = [14, 47];
+  const focus = [22, 45];
   const projection = geoOrthographic().precision(0.8);
   const path = geoPath(projection, context);
   let width = 0;
@@ -30,7 +40,6 @@ function drawProjectGlobe(context) {
   let globeShade;
   let depthShade;
   let edgeFade;
-  let labels = [];
   let lit = false;
   let running = !reducedMotion.matches;
   let request = null;
@@ -53,7 +62,7 @@ function drawProjectGlobe(context) {
 
   function draw() {
     if (!width || !height) return;
-    const longitude = focus[0] + 9 * Math.sin(elapsed / 13000);
+    const longitude = focus[0] + 4 * Math.sin(elapsed / 13000);
     const latitude = focus[1];
     projection.rotate([-longitude, -latitude]);
 
@@ -63,10 +72,10 @@ function drawProjectGlobe(context) {
     context.fillStyle = globeShade;
     context.fill();
     context.lineWidth = 0.75;
-    fill(land, '#4e766678');
-    fill(highlighted, '#85a88962');
-    stroke(land, '#8bb69b65');
-    stroke(borders, '#8bb69b32');
+    fill(land, '#77777764');
+    fill(highlighted, '#b0b0b04a');
+    stroke(land, '#cccccc58');
+    stroke(borders, '#b8b8b833');
     context.globalCompositeOperation = 'source-atop';
     context.fillStyle = depthShade;
     context.fillRect(0, 0, width, height);
@@ -74,7 +83,7 @@ function drawProjectGlobe(context) {
     context.fillStyle = edgeFade;
     context.fillRect(0, 0, width, height);
     context.globalCompositeOperation = 'source-over';
-    drawCities(context, projection, cities, labels, [longitude, latitude], width, height);
+    drawCities(context, projection, cities, [longitude, latitude], width, height);
   }
 
   function resize() {
@@ -84,24 +93,22 @@ function drawProjectGlobe(context) {
     canvas.width = Math.round(width * scale);
     canvas.height = Math.round(height * scale);
     context.setTransform(scale, 0, 0, scale, 0, 0);
-    radius = Math.min(width * 1.04, height * 1.12);
-    center = [width * 0.52, height * 0.47];
+    radius = Math.min(width * 0.91, height * 1.04);
+    center = [width * 0.445, height * 0.47];
     projection.scale(radius).translate(center);
     globeShade = context.createRadialGradient(center[0] - radius * 0.17, center[1] - radius * 0.2, 0, ...center, radius);
-    globeShade.addColorStop(0, '#20404b');
-    globeShade.addColorStop(0.52, '#10232e');
-    globeShade.addColorStop(1, '#080f15');
+    globeShade.addColorStop(0, '#303030');
+    globeShade.addColorStop(0.52, '#1b1b1b');
+    globeShade.addColorStop(1, '#0b0b0b');
     depthShade = context.createRadialGradient(center[0], center[1] - radius * 0.10, radius * 0.12,
       center[0], center[1] - radius * 0.10, radius * 0.86);
     depthShade.addColorStop(0, '#0000');
-    depthShade.addColorStop(0.55, '#03090f19');
-    depthShade.addColorStop(1, '#03090fa0');
+    depthShade.addColorStop(0.55, '#08080819');
+    depthShade.addColorStop(1, '#080808a0');
     edgeFade = context.createLinearGradient(0, 0, width, 0);
     edgeFade.addColorStop(0, '#0000');
     edgeFade.addColorStop(0.18, '#000');
     edgeFade.addColorStop(1, '#000');
-    projection.rotate([-focus[0], -focus[1]]);
-    labels = layoutLabels(cities, projection, width, height);
     draw();
     stage.classList.add('is-drawn');
     toggle.hidden = false;
@@ -142,72 +149,40 @@ function drawProjectGlobe(context) {
   updateMotion();
 }
 
-function layoutLabels(cities, projection, width, height) {
-  const narrow = width < 510;
-  const gap = narrow ? 24 : 32;
-  const margin = narrow ? 13 : 21;
-  // Set the label positions once per resize. The leader lines follow the
-  // projected points as the globe turns.
-  const featured = new Set(narrow
-    ? ['Warsaw', 'Paris', 'Barcelona', 'Lisbon', 'Kraków', 'Gdańsk', 'Madrid', 'Ljubljana']
-    : ['Warsaw', 'Paris', 'Barcelona', 'Lisbon', 'Kraków', 'Gdańsk', 'Madrid', 'Ljubljana',
-      'Valencia', 'Málaga', 'Wrocław', 'Poznań', 'Łódź', 'Szczecin']);
-  const selected = cities.filter((city) => featured.has(city.name));
-  return [-1, 1].flatMap((side) => {
-    const column = selected.filter((city) => (city.coordinates[0] < 12 ? -1 : 1) === side)
-      .map((city) => ({ city, y: projection(city.coordinates)[1] }))
-      .sort((a, b) => a.y - b.y);
-    let nextRow = margin;
-    return column.map(({ city, y }, index) => {
-      const lastAvailableRow = height - margin - (column.length - 1 - index) * gap;
-      const row = Math.min(lastAvailableRow, Math.max(nextRow, y));
-      nextRow = row + gap;
-      const inset = margin + (index % 3) * (narrow ? 7 : 23);
-      return { city, x: side === -1 ? inset : width - inset, y: row, side, fontSize: narrow ? 11 : 13 };
-    });
-  });
-}
-
-function drawCities(context, projection, cities, labels, globeCenter, width, height) {
-  const visibility = (city, x, y) => {
-    const edge = Math.min(x, width - x, y, height - y) / 28;
-    return Math.max(0, Math.min(1, edge, Math.cos(geoDistance(city.coordinates, globeCenter)) * 5));
-  };
+function drawCities(context, projection, cities, globeCenter, width, height) {
+  const narrow = width < 500;
+  const visibleLabels = [];
+  context.font = `600 ${narrow ? 11 : 14}px "Rethink Sans", Arial, sans-serif`;
   context.textBaseline = 'middle';
 
-  for (const { city, x, y, side, fontSize } of labels) {
-    const [pointX, pointY] = projection(city.coordinates);
-    const opacity = visibility(city, pointX, pointY);
-    if (opacity === 0) continue;
-    context.font = `500 ${fontSize}px "Rethink Sans", Arial, sans-serif`;
-    context.textAlign = side === -1 ? 'left' : 'right';
-    const textWidth = context.measureText(city.name).width;
-    const lineStart = x - side * (textWidth + 7);
-    context.globalAlpha = opacity;
-    context.beginPath();
-    context.moveTo(lineStart, y);
-    context.quadraticCurveTo(lineStart - side * 45, y, pointX, pointY);
-    const leader = context.createLinearGradient(lineStart, y, pointX, pointY);
-    leader.addColorStop(0, '#e8bd7920');
-    leader.addColorStop(1, '#e8bd7975');
-    context.strokeStyle = leader;
-    context.stroke();
-    context.fillStyle = '#e9d5b1';
-    context.fillText(city.name, x, y);
-  }
-
-  for (const [index, city] of cities.entries()) {
+  for (const city of cities) {
     const [x, y] = projection(city.coordinates);
-    const opacity = visibility(city, x, y);
+    const edge = Math.min(x, width - x, y, height - y) / 16;
+    const opacity = Math.max(0, Math.min(1, edge, Math.cos(geoDistance(city.coordinates, globeCenter)) * 5));
     if (opacity === 0) continue;
+    const label = cityLabels.get(city.name);
+    const showLabel = label && !(narrow && city.name === 'Madrid');
     context.globalAlpha = opacity;
     context.beginPath();
-    context.arc(x, y, index === 0 ? 4 : 2, 0, Math.PI * 2);
-    context.shadowBlur = 10;
-    context.shadowColor = '#e9ac61';
-    context.fillStyle = '#f3cd8c';
+    context.arc(x, y, showLabel ? 3.2 : 1.8, 0, Math.PI * 2);
+    context.shadowBlur = showLabel ? 9 : 0;
+    context.shadowColor = '#eeeeee';
+    context.fillStyle = showLabel ? '#ffffff' : '#ababab';
     context.fill();
     context.shadowBlur = 0;
+    if (showLabel) visibleLabels.push({ city, x, y, label, opacity });
+  }
+
+  for (const { city, x, y, label: [dx, dy], opacity } of visibleLabels) {
+    const textWidth = context.measureText(city.name).width;
+    const left = dx < 0 ? x + dx - textWidth : x + dx;
+    const labelX = Math.max(6, Math.min(width - textWidth - 6, left));
+    context.globalAlpha = opacity;
+    context.strokeStyle = '#111111';
+    context.lineWidth = 3;
+    context.strokeText(city.name, labelX, y + dy);
+    context.fillStyle = '#f6f6f6';
+    context.fillText(city.name, labelX, y + dy);
   }
   context.globalAlpha = 1;
 }
