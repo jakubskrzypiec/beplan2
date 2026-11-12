@@ -8,4 +8,4 @@ Anglojęzyczna strona główna przygotowana na podstawie planszy BEPLAN. Uruchom
 - `globe.js` wyświetla kopułę z miastami oznaczonymi w `index.html`. Pakiet `assets/globe-geometry.js` zawiera projekcję z d3-geo, funkcje z topojson-client i dane countries-110m z World Atlas oparte na [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/). Licencje znajdują się w `assets/globe-LICENSES.txt`.
 - `assets/` zawiera także zoptymalizowane kadry z [beplan.pl](https://beplan.pl/) oraz krój Rethink Sans z dołączoną licencją OFL.
 
-Wideo z dostarczonego pliku MP4 jest dostępne w dwóch rozdzielczościach. Przy włączonej preferencji ograniczenia ruchu strona wyświetla pierwszą klatkę filmu. Serwer produkcyjny powinien udostępniać MP4 z typem `video/mp4` i obsługiwać żądania zakresów bajtów.
+Hero wyświetla klatki filmu zapisane w `assets/hero-frames/`, w wersjach 1280 × 720 i 768 × 432. Każdy plik AVIF zawiera sześć klatek ułożonych w dwóch kolumnach. Przy ograniczeniu ruchu lub oszczędzaniu danych strona wyświetla pierwszą klatkę.
