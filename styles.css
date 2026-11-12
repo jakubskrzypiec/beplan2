@@ -83,9 +83,11 @@ button { font: inherit; color: inherit; }
   background: #191919;
 }
 
+.hero-story.is-hero-walk::after { content: ""; display: block; height: clamp(1250px, 265svh, 2550px); }
+.is-hero-walk .hero { position: sticky; top: 0; }
 .hero-media, .hero::after { position: absolute; inset: 0; }
 .hero-media { z-index: -3; overflow: hidden; }
-.hero-media img, .hero-video {
+.hero-media img, .hero-video, .hero-walk-canvas {
   position: absolute;
   inset: 0;
   display: block;
@@ -94,19 +96,19 @@ button { font: inherit; color: inherit; }
   object-fit: cover;
   object-position: 56% center;
 }
-.hero-video { visibility: hidden; }
-.hero-video.is-ready { visibility: visible; }
-.hero-playback {
+.hero-video, .hero-walk-canvas, .hero-media .hero-walk-end { visibility: hidden; }
+.is-hero-walk .hero-video.is-ready, .is-hero-walk .hero-walk-canvas.is-ready,
+.is-hero-walk .hero-media .hero-walk-end.is-ready { visibility: visible; }
+.hero-walk-hint {
+  display: none;
   position: absolute;
   right: var(--page-gutter);
   bottom: clamp(32px, 6.5svh, 80px);
-  padding: 9px 13px;
-  min-height: 44px;
-  background: #101010b8;
-  border: 1px solid #ffffff66;
+  color: #fff;
   font-size: 12px;
-  cursor: pointer;
+  text-shadow: 0 1px 9px #000;
 }
+.is-hero-walk .hero-walk-hint { display: block; }
 .hero::after {
   z-index: -2;
   content: "";
@@ -372,7 +374,8 @@ button { font: inherit; color: inherit; }
   .navigation { position: absolute; top: 100%; inset-inline: var(--page-gutter); background: #141414; border: 1px solid var(--line); padding: 8px 15px; flex-direction: column; align-items: stretch; gap: 0; }
   .navigation a { padding: 12px 0; font-size: 13px; }
   .navigation a + a { border-top: 1px solid var(--line); }
-  .hero-playback { top: 78px; bottom: auto; }
+  .hero-story.is-hero-walk::after { height: clamp(1100px, 225svh, 2100px); }
+  .hero-walk-hint { top: 78px; bottom: auto; }
   .hero::after { background: linear-gradient(90deg, #0a0a0ae8, #0a0a0a85 53%, #0a0a0a25), linear-gradient(0deg, #0a0a0a70, transparent 60%); }
   .expertise { gap: 32px; }
   .expertise-intro { padding-right: 0; }
@@ -406,6 +409,7 @@ button { font: inherit; color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
-  .hero-video.is-ready { visibility: hidden; }
+  .hero-story.is-hero-walk::after, .is-hero-walk .hero-walk-hint { display: none; }
+  .is-hero-walk .hero { position: relative; }
   .contact-interlude::before { animation: none; }
 }
