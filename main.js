@@ -86,11 +86,13 @@ const polish = {
   'footer.top': 'Do góry',
 };
 
+Object.assign(polish, clientCopy.pl);
 const description = document.querySelector('meta[name="description"]');
 const english = { 'meta.description': description.content };
 for (const element of document.querySelectorAll('[data-i18n]')) english[element.dataset.i18n] ??= element.innerHTML;
 for (const element of document.querySelectorAll('[data-i18n-placeholder]')) english[element.dataset.i18nPlaceholder] ??= element.placeholder;
-const copy = { en: english, pl: polish };
+Object.assign(english, clientCopy.en);
+const copy = { en: english, pl: polish, es: clientCopy.es };
 
 function savedLanguage() {
   try {
@@ -101,6 +103,7 @@ function savedLanguage() {
 }
 
 function setLanguage(language, remember) {
+  if (!copy[language]) return;
   const text = copy[language];
   document.documentElement.lang = language;
   description.content = text['meta.description'];
@@ -126,7 +129,7 @@ function setLanguage(language, remember) {
 
 const requested = new URLSearchParams(location.search).get('lang') ?? savedLanguage()
   ?? (navigator.language?.toLowerCase().startsWith('pl') ? 'pl' : 'en');
-if (requested === 'pl') setLanguage('pl', false);
+if (copy[requested]) setLanguage(requested, false);
 
 document.addEventListener('click', (event) => {
   const button = event.target.closest('[data-lang]');
@@ -135,7 +138,7 @@ document.addEventListener('click', (event) => {
 
 const menu = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#primary-nav');
-const compactLayout = window.matchMedia('(max-width: 760px)');
+const compactLayout = window.matchMedia('(max-width: 960px)');
 
 function setMenu(open) {
   menu.setAttribute('aria-expanded', String(open));
@@ -167,7 +170,7 @@ updateLayout();
 
 // Extra copies of the logo list let the strip loop without a gap.
 const logos = document.querySelector('.marquee-track');
-for (let copies = 0; copies < 2; copies++) {
+for (let copies = 0; logos && copies < 2; copies++) {
   const clone = logos.cloneNode(true);
   clone.setAttribute('aria-hidden', 'true');
   logos.parentElement.append(clone);
@@ -176,7 +179,7 @@ for (let copies = 0; copies < 2; copies++) {
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const enquiry = document.querySelector('.enquiry');
-enquiry.addEventListener('submit', (event) => {
+enquiry?.addEventListener('submit', (event) => {
   event.preventDefault();
   const fields = new FormData(enquiry);
   const details = [

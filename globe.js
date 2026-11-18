@@ -152,7 +152,7 @@ function drawCities(context, projection, cities, globeCenter, width, height, ste
   const reach = compact ? 26 : 42;
   const ease = step ? 1 - Math.exp(-step / 220) : 1;
   const fade = step ? step / 320 : 1;
-  context.font = `500 ${fontSize}px "Rethink Sans", Arial, sans-serif`;
+  context.font = `500 ${fontSize}px "DM Sans", Arial, sans-serif`;
   context.textBaseline = 'middle';
   const labels = [];
 
@@ -174,8 +174,8 @@ function drawCities(context, projection, cities, globeCenter, width, height, ste
     context.beginPath();
     context.arc(x, y, index < 3 ? 3.2 : 2.2, 0, Math.PI * 2);
     context.shadowBlur = 12;
-    context.shadowColor = '#bdbdbd';
-    context.fillStyle = '#cdcdcd';
+    context.shadowColor = '#299ef0';
+    context.fillStyle = '#4caff5';
     context.fill();
     context.shadowBlur = 0;
 
@@ -213,9 +213,9 @@ function drawCities(context, projection, cities, globeCenter, width, height, ste
     context.moveTo(x, y);
     context.lineTo(x + city.side * 12, labelY);
     context.lineTo(lineEnd, labelY);
-    context.strokeStyle = '#bcbcbc76';
+    context.strokeStyle = '#4caff58c';
     context.stroke();
-    context.fillStyle = '#e4e4e4';
+    context.fillStyle = '#71bcf1';
     context.fillText(city.name, left, labelY);
   }
   context.globalAlpha = 1;
