@@ -10,7 +10,7 @@ const escapeText = value => String(value).replaceAll('&', '&amp;').replaceAll('<
 function renderCard(project) {
   const area = project.area ? new Intl.NumberFormat(document.documentElement.lang).format(project.area) + ' m²' : '';
   return `<a class="project" href="project.html?id=${encodeURIComponent(project.id)}">
-    <img src="${project.thumbnail}" alt="${escapeText(project.title)}" width="1000" height="667" loading="lazy" decoding="async">
+    <span class="project-visual"><img src="${project.thumbnail}" alt="${escapeText(project.title)}" width="1000" height="667" loading="lazy" decoding="async"></span>
     <span class="project-caption">
       <span class="project-name">${escapeText(project.title.split('|')[0].trim())}</span>
       <span class="project-details">${escapeText([project.location, area].filter(Boolean).join(' · '))}</span>

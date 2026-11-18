@@ -13,6 +13,7 @@ const clientCopy = {
     'portfolio.label': 'Our portfolio', 'portfolio.title': 'Built around people.', 'interlude': 'Space for better work.',
   },
   pl: {
+    'area.800': '800 m²', 'area.1900': '1900 m²',
     'nav.sectors': 'Sektory', 'sectors.label': 'Nasze sektory', 'sectors.title': 'Przestrzenie, które inspirują.',
     'sectors.text': 'Od dynamicznych miejsc pracy po wyjątkowe domy i przestrzenie komercyjne — tworzymy miejsca, które łączą wysoką jakość projektu, funkcjonalność i trwałą wartość.',
     'sector.offices': 'Biura i miejsca pracy', 'sector.residential': 'Przestrzenie mieszkalne', 'sector.retail': 'Handel i usługi',

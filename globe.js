@@ -152,7 +152,7 @@ function drawCities(context, projection, cities, globeCenter, width, height, ste
   const reach = compact ? 26 : 42;
   const ease = step ? 1 - Math.exp(-step / 220) : 1;
   const fade = step ? step / 320 : 1;
-  context.font = `500 ${fontSize}px "DM Sans", Arial, sans-serif`;
+  context.font = `500 ${fontSize}px "Rethink Sans", Arial, sans-serif`;
   context.textBaseline = 'middle';
   const labels = [];
 

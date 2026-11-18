@@ -129,7 +129,7 @@ function setLanguage(language, remember) {
 
 const requested = new URLSearchParams(location.search).get('lang') ?? savedLanguage()
   ?? (navigator.language?.toLowerCase().startsWith('pl') ? 'pl' : 'en');
-if (copy[requested]) setLanguage(requested, false);
+if (copy[requested]) setLanguage(requested, new URLSearchParams(location.search).has('lang'));
 
 document.addEventListener('click', (event) => {
   const button = event.target.closest('[data-lang]');

@@ -10,6 +10,6 @@ Strona główna i portfolio, przygotowane na podstawie planszy BEPLAN oraz uwag 
 - `projects.html` prezentuje 64 realizacje i filtruje je według sektora. `project.html?id=...` otwiera szczegóły. `projects.json` zawiera dane ze strony klienta, źródłowe adresy, lokalne zdjęcia oraz przypisanie sektorów na podstawie opisów. Oryginalne opisy realizacji pozostają po angielsku.
 - `assets/clients/` zawiera kolorowe logotypy klientów z [beplan.pl](https://beplan.pl/). Logo BEPLAN360 pochodzi z podpisu w mailu klienta.
 - `globe.js` wyświetla kopułę z miastami oznaczonymi w `index.html`. Pakiet `assets/globe-geometry.js` zawiera projekcję z d3-geo, funkcje z topojson-client i dane countries-110m z World Atlas oparte na [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/). Licencje znajdują się w `assets/globe-LICENSES.txt`.
-- `assets/` zawiera także zoptymalizowane kadry z [beplan.pl](https://beplan.pl/) oraz krój DM Sans z dołączoną licencją OFL.
+- `assets/` zawiera także zoptymalizowane kadry z [beplan.pl](https://beplan.pl/) oraz krój Rethink Sans z dołączoną licencją OFL. Na stronie głównej pokazujemy sześć wybranych realizacji, a pełne portfolio ma 64 projekty.
 
 Spacer ma wersję 1920 × 1080 i lżejszą 1280 × 720. Gdy WebCodecs jest niedostępne, przewijanie ustawia pozycję w pliku MP4. Przy ograniczeniu ruchu lub oszczędzaniu danych strona wyświetla pierwszą klatkę.
