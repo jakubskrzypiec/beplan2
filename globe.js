@@ -174,8 +174,8 @@ function drawCities(context, projection, cities, globeCenter, width, height, ste
     context.beginPath();
     context.arc(x, y, index < 3 ? 3.2 : 2.2, 0, Math.PI * 2);
     context.shadowBlur = 12;
-    context.shadowColor = '#299ef0';
-    context.fillStyle = '#4caff5';
+    context.shadowColor = '#bdbdbd';
+    context.fillStyle = '#cdcdcd';
     context.fill();
     context.shadowBlur = 0;
 
@@ -213,9 +213,9 @@ function drawCities(context, projection, cities, globeCenter, width, height, ste
     context.moveTo(x, y);
     context.lineTo(x + city.side * 12, labelY);
     context.lineTo(lineEnd, labelY);
-    context.strokeStyle = '#4caff58c';
+    context.strokeStyle = '#bcbcbc76';
     context.stroke();
-    context.fillStyle = '#71bcf1';
+    context.fillStyle = '#e4e4e4';
     context.fillText(city.name, left, labelY);
   }
   context.globalAlpha = 1;
