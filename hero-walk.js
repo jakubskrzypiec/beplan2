@@ -50,7 +50,8 @@ function render(now) {
   const travel = story.offsetHeight - hero.offsetHeight;
   if (!travel) return;
 
-  const target = Math.max(0, Math.min(1, -story.getBoundingClientRect().top / travel));
+  const stickyTop = parseFloat(getComputedStyle(hero).top) || 0;
+  const target = Math.max(0, Math.min(1, (stickyTop - story.getBoundingClientRect().top) / travel));
   const delta = previousTime === null ? 16 : Math.min(now - previousTime, 50);
   previousTime = now;
   if (progress === null || target === 1 || Math.abs(progress - target) < 0.001) progress = target;

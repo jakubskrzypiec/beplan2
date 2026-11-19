@@ -3,34 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0b0b">
+  <meta name="theme-color" content="#ffffff">
   <meta name="description" content="BEPLAN Design + Build. Integrated architecture, interior design and turnkey workspaces across EMEA.">
   <title>BEPLAN — Design + Build</title>
   <link rel="preload" href="assets/rethink-sans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=13">
-  <script src="main.js?v=12" defer></script>
-  <script type="module" src="hero-walk.js?v=13"></script>
-  <script type="module" src="globe.js?v=11"></script>
+  <link rel="preload" href="assets/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=30">
+  <script src="main.js?v=16" defer></script>
+  <script type="module" src="hero-walk.js?v=14"></script>
+  <script type="module" src="globe.js?v=14"></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
   <header class="site-header" id="top">
     <div class="wrap header-inner">
-      <a class="brand" href="./" aria-label="BEPLAN Design and Build home">
-        <span class="brand-name">BEPLAN</span>
-        <span class="brand-service">Design + Build</span>
+      <a class="brand brand-logo" href="./" aria-label="BEPLAN Design and Build home">
+        <img src="assets/logo-beplan-mark-light.svg" alt="BEPLAN" width="756" height="260">
       </a>
       <nav class="navigation" id="primary-nav" aria-label="Primary">
         <a href="#projects" data-i18n="nav.projects">Projects</a>
         <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
+        <a href="#sectors" data-i18n="nav.sectors">Sectors</a>
         <a href="#international" data-i18n="nav.international">International</a>
         <a href="https://beplan.pl/#about-anchor" data-i18n="nav.studio">Studio</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
       <div class="header-tools">
-        <div class="lang-switch" role="group" aria-label="Language / Język">
+        <div class="lang-switch" role="group" aria-label="Language / Język / Idioma">
           <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English">EN</button>
           <button type="button" data-lang="pl" aria-pressed="false" lang="pl" aria-label="Polski">PL</button>
+          <button type="button" data-lang="es" aria-pressed="false" lang="es" aria-label="Español">ES</button>
         </div>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" hidden>Menu <span aria-hidden="true"></span></button>
       </div>
@@ -61,55 +63,118 @@
     </section>
 
     <section class="projects wrap" id="projects" aria-labelledby="projects-title">
+      <p class="section-label" data-i18n="projects.label">Our work</p>
       <h2 class="statement" id="projects-title" data-i18n="projects.title">Selected projects</h2>
-      <div class="project-row">
+      <div class="project-grid project-mosaic">
+        <div class="project-band">
         <a class="project" href="https://beplan.pl/projects/glovo-headquarters-warsaw/">
-          <img src="assets/glovo.webp" alt="" width="1080" height="608" loading="lazy">
-          <span class="project-caption"><span class="project-name">Glovo</span><span class="project-details"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.1400">1,400 m²</span></span></span>
+          <img class="project-photo" src="assets/glovo.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+          <span class="project-meta"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.1400">1,400 m²</span></span>
+          <span class="project-brand has-mark">
+            <img src="assets/project-logos/glovo.svg" alt="" loading="lazy" decoding="async"><span>Glovo</span>
+          </span>
+          <span class="project-arrow" aria-hidden="true"></span>
         </a>
         <a class="project" href="https://beplan.pl/projects/carl-zeiss-offices-dubai-uae/">
-          <img src="assets/zeiss.webp" alt="" width="1080" height="608" loading="lazy">
-          <span class="project-caption"><span class="project-name">Zeiss</span><span class="project-details"><span data-i18n="city.dubai">Dubai</span><span data-i18n="area.1500">1,500 m²</span></span></span>
-        </a>
-      </div>
-      <div class="project-row project-row-secondary">
-        <a class="project" href="https://beplan.pl/projects/transporeon-poland/">
-          <img src="assets/transporeon.webp" alt="" width="1080" height="608" loading="lazy">
-          <span class="project-caption"><span class="project-name">Transporeon</span><span class="project-details"><span data-i18n="city.krakow">Kraków</span><span data-i18n="area.2000">2,000 m²</span></span></span>
+          <img class="project-photo" src="assets/zeiss.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+          <span class="project-meta"><span data-i18n="city.dubai">Dubai</span><span data-i18n="area.1500">1,500 m²</span></span>
+          <span class="project-brand">
+            <img src="assets/clients/zeiss.webp" alt="Zeiss" loading="lazy" decoding="async">
+          </span>
+          <span class="project-arrow" aria-hidden="true"></span>
         </a>
         <a class="project" href="https://beplan.pl/projects/groupon-headquarters-6th-floor/">
-          <img src="assets/groupon.webp" alt="" width="1080" height="608" loading="lazy">
-          <span class="project-caption"><span class="project-name">Groupon</span><span class="project-details"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.900">900 m²</span></span></span>
+          <img class="project-photo" src="assets/groupon.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+          <span class="project-meta"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.900">900 m²</span></span>
+          <span class="project-brand has-mark">
+            <img src="assets/project-logos/groupon.svg" alt="" loading="lazy" decoding="async"><span>Groupon</span>
+          </span>
+          <span class="project-arrow" aria-hidden="true"></span>
         </a>
+        </div>
+        <div class="project-band">
+        <a class="project" href="https://beplan.pl/projects/t-mobile/">
+          <img class="project-photo" src="assets/projects/tmobile.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+          <span class="project-meta"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.4000">4,000 m²</span></span>
+          <span class="project-brand is-wide">
+            <img src="assets/clients/tmobile.webp" alt="T-Mobile" loading="lazy" decoding="async">
+          </span>
+          <span class="project-arrow" aria-hidden="true"></span>
+        </a>
+        <a class="project" href="https://beplan.pl/projects/mercedes-benz/">
+          <img class="project-photo" src="assets/projects/mercedes.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+          <span class="project-meta"><span data-i18n="city.barcelona">Barcelona</span><span data-i18n="area.1500">1,500 m²</span></span>
+          <span class="project-brand has-mark">
+            <img src="assets/project-logos/mercedes.svg" alt="" loading="lazy" decoding="async"><span>Mercedes-Benz</span>
+          </span>
+          <span class="project-arrow" aria-hidden="true"></span>
+        </a>
+        <a class="project" href="https://beplan.pl/projects/tik-tok-bytedance-offices/">
+          <img class="project-photo" src="assets/projects/bytedance.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+          <span class="project-meta"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.600">600 m²</span></span>
+          <span class="project-brand is-wide">
+            <img src="assets/project-logos/bytedance.svg" alt="ByteDance" loading="lazy" decoding="async">
+          </span>
+          <span class="project-arrow" aria-hidden="true"></span>
+        </a>
+        </div>
       </div>
     </section>
 
+    <div class="paper">
     <section class="expertise wrap" id="expertise" aria-labelledby="expertise-title">
       <div class="expertise-intro" data-reveal>
         <p class="section-label" data-i18n="expertise.label">Our expertise</p>
         <h2 class="statement" id="expertise-title" data-i18n="expertise.title">From concept<br>to completion.</h2>
-        <p class="section-description" data-i18n="expertise.text">We design, manage and deliver workplace projects, from the first brief to the day you move in.</p>
+        <p class="section-description" data-i18n="expertise.text">We design, manage and deliver exceptional spaces, combining architectural creativity, technical expertise and construction excellence from the first concept to final handover.</p>
       </div>
       <div class="service-list">
         <details name="expertise" open>
           <summary><span class="service-title" data-i18n="service.1.title">Architecture &amp; Interior Design</span><span class="toggle-icon" aria-hidden="true"></span></summary>
-          <p data-i18n="service.1.text">We design workspaces around how teams work, from the first concept and space plan to detailed construction drawings.</p>
+          <p data-i18n="service.1.text">We create inspiring, functional and distinctive spaces tailored to each client’s identity and business needs. From workplace strategy and space planning to concept development, detailed design and technical documentation, we transform ideas into practical, buildable solutions.</p>
         </details>
         <details name="expertise">
           <summary><span class="service-title" data-i18n="service.2.title">Design &amp; Build</span><span class="toggle-icon" aria-hidden="true"></span></summary>
-          <p data-i18n="service.2.text">One team takes the project from design through construction and fit-out, ready for your team to move in.</p>
+          <p data-i18n="service.2.text">One partner, one integrated process. We combine design, engineering, procurement and construction under a single point of responsibility, ensuring seamless coordination, cost control, quality and timely delivery — from initial brief to a fully operational space.</p>
         </details>
         <details name="expertise">
           <summary><span class="service-title" data-i18n="service.3.title">General Contracting</span><span class="toggle-icon" aria-hidden="true"></span></summary>
-          <p data-i18n="service.3.text">We coordinate contractors, trades and installation to deliver new and refurbished commercial interiors.</p>
+          <p data-i18n="service.3.text">We deliver complete construction, fit-out and refurbishment works, coordinating all trades and technical installations. Our teams manage procurement, site execution, quality, safety and commissioning to achieve reliable results in line with project specifications and deadlines.</p>
         </details>
         <details name="expertise">
           <summary><span class="service-title" data-i18n="service.4.title">Project Management</span><span class="toggle-icon" aria-hidden="true"></span></summary>
-          <p data-i18n="service.4.text">We plan schedules, coordinate teams and oversee quality from the start of the project through handover.</p>
+          <p data-i18n="service.4.text">We represent our clients throughout the project lifecycle, overseeing budgets, schedules, contractors and technical coordination. Through proactive planning, transparent reporting and on-site supervision, we safeguard project objectives and ensure successful delivery.</p>
         </details>
       </div>
     </section>
 
+    <section class="sectors wrap" id="sectors" aria-labelledby="sectors-title">
+      <div class="sectors-head" data-reveal>
+        <div>
+          <p class="section-label" data-i18n="sectors.label">Our sectors</p>
+          <h2 class="statement" id="sectors-title" data-i18n="sectors.title">Spaces that inspire.</h2>
+        </div>
+        <p class="section-description" data-i18n="sectors.text">From dynamic workplaces to distinctive homes and commercial environments, we create spaces that combine design excellence, functionality and lasting value.</p>
+      </div>
+      <div class="sector-grid">
+        <article class="sector" data-reveal>
+          <h3 data-i18n="sector.offices.title">Offices &amp; Workplaces</h3>
+          <p data-i18n="sector.offices.text">We design and deliver innovative workplaces that enhance collaboration, productivity and employee well-being. From corporate headquarters and flexible offices to complete workplace transformations, we create environments that reflect each organization’s identity and evolving business needs.</p>
+        </article>
+        <article class="sector" data-reveal>
+          <h3 data-i18n="sector.residential.title">Residential</h3>
+          <p data-i18n="sector.residential.text">We create distinctive residential spaces that combine contemporary design, comfort and individuality. From luxury apartments and private residences to complete renovations, we deliver thoughtfully designed interiors where aesthetics, functionality and craftsmanship come together.</p>
+        </article>
+        <article class="sector" data-reveal>
+          <h3 data-i18n="sector.retail.title">Retail &amp; Commercial</h3>
+          <p data-i18n="sector.retail.text">We design and build engaging commercial environments that strengthen brand identity and enhance customer experience. From retail stores and showrooms to hospitality and leisure spaces, we combine creative design with technical expertise to deliver functional, memorable destinations.</p>
+        </article>
+      </div>
+    </section>
+
+    </div>
+
+    <div class="graphite">
     <section class="international" id="international" aria-labelledby="international-title">
       <div class="map" aria-hidden="true"><canvas id="project-globe"></canvas></div>
       <div class="wrap international-content" data-reveal>
@@ -211,28 +276,28 @@
         <p class="section-label wrap" id="clients-title" data-i18n="clients.title">Clients we have worked with</p>
         <div class="marquee">
           <ul class="marquee-track">
-            <li><img src="assets/clients/tmobile.webp" alt="T-Mobile" width="871" height="143" style="--s:0.8" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients/pzu.webp" alt="PZU" width="200" height="200" style="--s:1.5" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients/ey.webp" alt="EY" width="174" height="200" style="--s:1.6" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients/abb.webp" alt="ABB" width="510" height="200" style="--s:0.85" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients/zeiss.webp" alt="Zeiss" width="200" height="200" style="--s:1.5" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients/plus.webp" alt="Plus" width="570" height="169" style="--s:1" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients/chep.webp" alt="CHEP" width="746" height="200" style="--s:0.8" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients/idg.webp" alt="IDG" width="396" height="100" style="--s:0.85" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients/dsg.webp" alt="De Sangosse Group" width="375" height="200" style="--s:1.45" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/tmobile.webp" alt="T-Mobile" width="871" height="143" style="--s:0.8" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/pzu.webp" alt="PZU" width="200" height="200" style="--s:1.5" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/ey.webp" alt="EY" width="174" height="200" style="--s:1.6" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/abb.webp" alt="ABB" width="507" height="200" style="--s:0.85" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/zeiss.webp" alt="Zeiss" width="200" height="200" style="--s:1.5" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/plus.webp" alt="Plus" width="570" height="170" style="--s:1" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/chep.webp" alt="CHEP" width="747" height="200" style="--s:0.8" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/idg.webp" alt="IDG" width="396" height="100" style="--s:0.85" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/dsg.webp" alt="De Sangosse Group" width="373" height="200" style="--s:1.45" loading="lazy" decoding="async"></li>
           </ul>
         </div>
       </div>
     </section>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="wrap">
       <div class="footer-inner">
         <div class="footer-studio">
-          <a class="brand" href="./" aria-label="BEPLAN Design and Build home">
-            <span class="brand-name">BEPLAN</span>
-            <span class="brand-service">Design + Build</span>
+          <a class="footer-logo" href="./" aria-label="BEPLAN Design and Build home">
+            <img src="assets/logo-beplan-mark-light.svg" alt="BEPLAN Design + Build" width="756" height="260" loading="lazy">
           </a>
           <p data-i18n="footer.about">Architecture, design and fit-out for workplaces across Europe, the Middle East and Africa.</p>
         </div>
@@ -240,6 +305,7 @@
           <p class="footer-label" data-i18n="footer.explore">Explore</p>
           <a href="#projects" data-i18n="nav.projects">Projects</a>
           <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
+          <a href="#sectors" data-i18n="nav.sectors">Sectors</a>
           <a href="#international" data-i18n="nav.international">International</a>
           <a href="https://beplan.pl/#about-anchor" data-i18n="nav.studio">Studio</a>
           <a href="#contact-form" data-i18n="nav.contact">Contact</a>
@@ -260,9 +326,10 @@
       <div class="footer-legal">
         <span>© BEPLAN Design + Build</span>
         <a href="https://beplan.pl/privacy-policy/" data-i18n="footer.privacy">Privacy policy</a>
-        <div class="lang-switch" role="group" aria-label="Language / Język">
+        <div class="lang-switch" role="group" aria-label="Language / Język / Idioma">
           <button type="button" data-lang="en" aria-pressed="true" lang="en">English</button>
           <button type="button" data-lang="pl" aria-pressed="false" lang="pl">Polski</button>
+          <button type="button" data-lang="es" aria-pressed="false" lang="es">Español</button>
         </div>
         <a class="footer-top" href="#top"><span data-i18n="footer.top">Back to top</span> <span aria-hidden="true">↑</span></a>
       </div>
