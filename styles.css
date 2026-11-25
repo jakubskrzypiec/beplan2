@@ -1249,3 +1249,232 @@ body { background: var(--paper); }
 .graphite .enquiry-fields label { color: #b1b1b1; }
 .graphite .enquiry-fields :is(input, textarea)::placeholder { color: #8a8a8a; }
 .hero-actions .button-dark { background: #0b0b0bb3; }
+
+/* ==================================================================
+   Nov 25: looping hero video, black content, white logo strip,
+   black footer. Header stays white. Blue = frame on hover and accents.
+   ================================================================== */
+:root {
+  --black: #0b0b0b;
+  --surface: var(--black);
+  --text: #f1f1f1;
+  --muted: #a9a9a9;
+  --line: #ffffff1c;
+  color-scheme: dark;
+  background: var(--black);
+  color: var(--text);
+}
+body { background: var(--black); }
+
+/* Hero: the film plays on its own, no scroll-driven walk */
+.hero-loop {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 56% center;
+  opacity: 0;
+  transition: opacity .8s ease;
+}
+.hero-loop.is-playing { opacity: 1; }
+
+/* Projects on black; logos in colour on a small white plate */
+.project-brand {
+  padding: 8px 12px;
+  background: #fff;
+  color: #16191d;
+}
+.project-brand img, .project-grid .project .project-brand img { filter: none; }
+.project-brand.has-mark img { width: clamp(20px, 1.7vw, 26px); height: clamp(20px, 1.7vw, 26px); }
+.project-brand span { color: #16191d; font-size: clamp(13px, 1.1vw, 17px); }
+.project-brand:not(.has-mark):not(.is-wide) img { width: clamp(30px, 2.4vw, 38px); height: clamp(30px, 2.4vw, 38px); }
+.project-brand.is-wide img { height: clamp(16px, 1.3vw, 22px); }
+.project-grid.project-mosaic .project .project-brand { bottom: clamp(18px, 1.7vw, 26px); }
+
+/* Hover: no dimming any more; a blue frame draws around the tile */
+.project-mosaic:hover .project:not(:hover) .project-photo { filter: none; }
+.project-grid.project-mosaic .project::before {
+  display: block;
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 3px solid var(--blue);
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity .35s ease, transform .5s cubic-bezier(.2, .7, .2, 1);
+  pointer-events: none;
+}
+.project-grid.project-mosaic .project:is(:hover, :focus-visible)::before { opacity: 1; transform: none; }
+
+/* Expertise back on black */
+.paper { --text: #f1f1f1; --muted: #a9a9a9; --line: #ffffff1c; background: var(--black); color: var(--text); }
+.paper .section-label { color: var(--text); }
+.paper .service-list summary { color: #b9b9b9; }
+.paper .service-list summary:hover, .paper .service-list details[open] summary { color: #fff; }
+.paper .service-list summary::before { color: #6f6f6f; }
+.paper .service-list details[open] summary::before { color: var(--blue-soft); }
+.paper .toggle-icon { border-color: #ffffff4d; color: var(--text); }
+.paper .service-list summary:hover .toggle-icon { border-color: #fff; }
+.paper .service-list details[open] .toggle-icon { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* Sectors on black: each tile is a photo with the text on it */
+.paper .sectors { background: var(--black); box-shadow: none; clip-path: none; }
+.sector-grid { gap: var(--gap); }
+.sector {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(420px, 36vw, 560px);
+  padding: clamp(22px, 2.2vw, 36px);
+  border: 0;
+  background: #1a1a1a;
+}
+.sector-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s cubic-bezier(.2, .7, .2, 1);
+}
+.sector::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(0deg, #0b0b0bf2 0%, #0b0b0bc7 38%, #0b0b0b4d 70%, #0b0b0b26 100%);
+  transition: background .5s ease;
+}
+.sector::before { inset: 0 0 auto; height: 3px; z-index: 1; background: var(--blue); }
+.sector h3 { margin: 0 0 clamp(12px, 1.1vw, 18px); color: #fff; }
+.paper .sector p, .sector p { color: #d6d6d6; }
+.sector:hover { transform: none; background: #1a1a1a; }
+.sector:hover .sector-photo { transform: scale(1.06); }
+.sector:hover::after { background: linear-gradient(0deg, #0b0b0bf2 0%, #0b0b0bb3 45%, #0b0b0b33 75%, transparent 100%); }
+.sector:hover h3 { transform: translateX(6px); }
+.paper .sector:hover p { color: #fff; }
+
+/* Client logos stay on white; footer goes black */
+.site-footer { background: var(--black); color: var(--text); border-top: 0; }
+.footer-studio p, .site-footer nav, .site-footer address { color: var(--muted); }
+.site-footer .footer-label { color: var(--text); }
+.site-footer address a { text-decoration-color: #ffffff59; }
+.site-footer :is(nav, address) a:hover, .footer-legal a:hover { color: var(--blue-soft); }
+.footer-legal { background: var(--black); color: var(--muted); border-top: 1px solid var(--line); }
+.footer-legal a { text-decoration-color: #ffffff59; }
+.footer-top { color: var(--text); }
+.footer-legal .lang-switch { border-color: #ffffff59; background: transparent; }
+.footer-legal .lang-switch button { color: #e6e6e6; }
+.footer-legal .lang-switch button:hover { color: #fff; }
+.footer-legal .lang-switch button[aria-pressed="true"] { background: #f1f1f1; color: #0b0b0b; }
+
+@media (max-width: 900px) {
+  .sector { min-height: clamp(340px, 70vw, 460px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-loop { display: none; }
+}
+
+/* ==================================================================
+   Nov 25 (2): transparent header that hides on scroll, drawn frame,
+   animated section rules, alternating blacks
+   ================================================================== */
+:root { --black: #0b0b0b; --black-2: #141414; }
+
+/* Header: transparent at the top, black once you scroll; hides on the way down */
+.site-header {
+  background: #0b0b0bf2;
+  color: var(--text);
+  box-shadow: 0 1px 0 #ffffff14;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1), background .35s ease, box-shadow .35s ease;
+}
+.site-header.is-top { background: linear-gradient(#0b0b0b99, #0b0b0b00); box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.site-header.is-hidden { transform: translateY(-100%); }
+.site-header .navigation a, .site-header .navigation a:hover { color: #f1f1f1; }
+.site-header .lang-switch { border-color: #ffffff80; background: transparent; }
+.site-header .lang-switch button { color: #f1f1f1; }
+.site-header .lang-switch button:hover { color: var(--blue-soft); }
+.site-header .lang-switch button[aria-pressed="true"] { background: #f1f1f1; color: #0b0b0b; }
+.site-header .menu-toggle { background: transparent; border-color: #ffffff80; color: #f1f1f1; }
+
+/* The hero now starts under the transparent header */
+main { padding-top: 0; }
+.hero { min-height: 100vh; min-height: 100svh; padding-top: calc(var(--header-h) + clamp(30px, 4vw, 80px)); }
+
+/* Projects: the blue frame draws from the bottom middle and meets at the top middle */
+.project-grid.project-mosaic .project::before { display: none; }
+.project-frame { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.project-frame svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.project-frame path {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 6;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset .7s cubic-bezier(.65, 0, .35, 1);
+}
+.project:is(:hover, :focus-visible) .project-frame path { stroke-dashoffset: 0; }
+
+/* Section rules draw in when the section scrolls into view */
+.has-rule-motion .section-label::after {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .9s cubic-bezier(.2, .7, .2, 1) .15s;
+}
+.has-rule-motion .section-label.is-in::after { transform: scaleX(1); }
+
+/* Alternating blacks so the sections read as separate chapters */
+.projects { background: var(--black); box-shadow: 0 0 0 100vmax var(--black); clip-path: inset(0 -100vmax); }
+.paper .expertise { background: var(--black-2); box-shadow: 0 0 0 100vmax var(--black-2); clip-path: inset(0 -100vmax); }
+.paper .sectors { background: var(--black); box-shadow: 0 0 0 100vmax var(--black); clip-path: inset(0 -100vmax); }
+.graphite .international { background: radial-gradient(ellipse at 76% 48%, #222, var(--black-2) 68%); border-top: 0; }
+.graphite, .graphite .contact { background: var(--black); }
+.site-footer, .footer-legal { background: var(--black-2); }
+
+@media (max-width: 760px) {
+  .site-header .navigation { background: #111; border: 1px solid #ffffff1f; box-shadow: 0 16px 34px #0009; }
+  .site-header .navigation a + a { border-color: #ffffff1a; }
+  .site-header .navigation a { color: #f1f1f1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header { transition: none; }
+  .project-frame path { transition: none; }
+}
+
+/* Blue frame drawn in three steps: the bottom grows out from the middle,
+   the sides climb, and the two top halves meet in the middle. */
+.project-frame, .project-frame::before, .project-frame::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  transition: background-size .22s cubic-bezier(.4, 0, .2, 1);
+}
+.project-frame { z-index: 3; background-image: linear-gradient(var(--blue), var(--blue)); background-position: 50% 100%; background-size: 0 3px; }
+.project-frame::before, .project-frame::after { content: ""; background-image: linear-gradient(var(--blue), var(--blue)), linear-gradient(var(--blue), var(--blue)); }
+.project-frame::before { background-position: 0 100%, 100% 100%; background-size: 3px 0, 3px 0; }
+.project-frame::after { background-position: 0 0, 100% 0; background-size: 0 3px, 0 3px; }
+.project:is(:hover, :focus-visible) .project-frame { background-size: 100% 3px; transition-duration: .22s; }
+.project:is(:hover, :focus-visible) .project-frame::before { background-size: 3px 100%, 3px 100%; transition-duration: .3s; transition-delay: .2s; }
+.project:is(:hover, :focus-visible) .project-frame::after { background-size: 50% 3px, 50% 3px; transition-duration: .22s; transition-delay: .48s; }
+@media (prefers-reduced-motion: reduce) {
+  .project-frame, .project-frame::before, .project-frame::after { transition: none !important; }
+}
+
+/* Project logos in colour straight on the photo (transparent PNG/SVG, no white plate) */
+.project-brand { padding: 0; background: none; gap: 10px; }
+.project-brand img, .project-grid .project .project-brand img { filter: drop-shadow(0 1px 8px #000000a6); }
+.project-brand span { color: #fff; font-size: clamp(14px, 1.25vw, 19px); text-shadow: 0 1px 10px #000000b3; }
+.project-brand.has-mark img { width: clamp(24px, 2vw, 32px); height: clamp(24px, 2vw, 32px); }
+.project-brand:not(.has-mark):not(.is-wide) img { width: clamp(40px, 3.4vw, 54px); height: clamp(40px, 3.4vw, 54px); }
+.project-brand.is-wide img { height: clamp(18px, 1.6vw, 26px); max-width: clamp(130px, 11vw, 180px); }

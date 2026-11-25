@@ -346,3 +346,47 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
   }, { threshold: 0.12 });
   document.querySelectorAll('[data-reveal], .service-list details').forEach((element) => reveal.observe(element));
 }
+
+const heroVideo = document.querySelector('.hero-loop');
+if (heroVideo && !reducedMotion.matches && !navigator.connection?.saveData) {
+  heroVideo.src = window.matchMedia('(max-width: 760px)').matches ? heroVideo.dataset.mobileSrc : heroVideo.dataset.src;
+  heroVideo.addEventListener('playing', () => heroVideo.classList.add('is-playing'), { once: true });
+  heroVideo.play().catch(() => {});
+}
+
+// Header: transparent over the hero, hides while scrolling down, comes back on the way up.
+const siteHeader = document.querySelector('.site-header');
+let lastScroll = window.scrollY;
+let headerTicking = false;
+function updateHeaderState() {
+  headerTicking = false;
+  const y = window.scrollY;
+  const menuOpen = menu.getAttribute('aria-expanded') === 'true';
+  siteHeader.classList.toggle('is-top', y < 24);
+  if (menuOpen || y < siteHeader.offsetHeight) siteHeader.classList.remove('is-hidden');
+  else if (y > lastScroll + 6) siteHeader.classList.add('is-hidden');
+  else if (y < lastScroll - 6) siteHeader.classList.remove('is-hidden');
+  if (Math.abs(y - lastScroll) > 6) lastScroll = y;
+}
+window.addEventListener('scroll', () => {
+  if (!headerTicking) {
+    headerTicking = true;
+    requestAnimationFrame(updateHeaderState);
+  }
+}, { passive: true });
+siteHeader.addEventListener('focusin', () => siteHeader.classList.remove('is-hidden'));
+updateHeaderState();
+
+// Section rules draw in when their section comes into view.
+const labels = document.querySelectorAll('.section-label');
+if ('IntersectionObserver' in window && !reducedMotion.matches) {
+  document.documentElement.classList.add('has-rule-motion');
+  const ruleObserver = new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('is-in');
+      observer.unobserve(entry.target);
+    }
+  }, { threshold: 0.6 });
+  labels.forEach((label) => ruleObserver.observe(label));
+}

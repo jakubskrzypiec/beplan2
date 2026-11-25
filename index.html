@@ -3,14 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0b0b0b">
   <meta name="description" content="BEPLAN Design + Build. Integrated architecture, interior design and turnkey workspaces across EMEA.">
   <title>BEPLAN — Design + Build</title>
   <link rel="preload" href="assets/rethink-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=30">
-  <script src="main.js?v=16" defer></script>
-  <script type="module" src="hero-walk.js?v=14"></script>
+  <link rel="stylesheet" href="styles.css?v=34">
+  <script src="main.js?v=18" defer></script>
   <script type="module" src="globe.js?v=14"></script>
 </head>
 <body>
@@ -18,7 +17,7 @@
   <header class="site-header" id="top">
     <div class="wrap header-inner">
       <a class="brand brand-logo" href="./" aria-label="BEPLAN Design and Build home">
-        <img src="assets/logo-beplan-mark-light.svg" alt="BEPLAN" width="756" height="260">
+        <img src="assets/logo-beplan-mark.svg?v=2" alt="BEPLAN" width="756" height="260">
       </a>
       <nav class="navigation" id="primary-nav" aria-label="Primary">
         <a href="#projects" data-i18n="nav.projects">Projects</a>
@@ -47,9 +46,7 @@
             <source media="(max-width: 760px)" srcset="assets/hero-mobile.webp?v=5">
             <img src="assets/hero.webp?v=5" alt="" width="1920" height="1080" fetchpriority="high">
           </picture>
-          <video class="hero-video" muted playsinline preload="none"></video>
-          <canvas class="hero-walk-canvas"></canvas>
-          <img class="hero-walk-end" src="assets/hero-walk-end.webp?v=5" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+          <video class="hero-loop" muted loop playsinline preload="none" poster="assets/hero.webp?v=5" data-src="assets/hero-loop.mp4" data-mobile-src="assets/hero-loop-mobile.mp4"></video>
         </div>
         <div class="wrap hero-content">
           <h1 class="statement" id="hero-title" data-i18n="hero.title">We design.<br>We build.<br>We deliver.</h1>
@@ -58,7 +55,6 @@
             <a class="button button-dark" href="#contact-form"><span data-i18n="hero.contact">Get in touch</span></a>
           </div>
         </div>
-        <p class="hero-walk-hint" data-i18n="hero.hint">Scroll to explore</p>
       </div>
     </section>
 
@@ -71,25 +67,28 @@
           <img class="project-photo" src="assets/glovo.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
           <span class="project-meta"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.1400">1,400 m²</span></span>
           <span class="project-brand has-mark">
-            <img src="assets/project-logos/glovo.svg" alt="" loading="lazy" decoding="async"><span>Glovo</span>
+            <img src="assets/project-logos/glovo-color.svg" alt="" loading="lazy" decoding="async"><span>Glovo</span>
           </span>
           <span class="project-arrow" aria-hidden="true"></span>
+          <span class="project-frame" aria-hidden="true"></span>
         </a>
         <a class="project" href="https://beplan.pl/projects/carl-zeiss-offices-dubai-uae/">
           <img class="project-photo" src="assets/zeiss.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
           <span class="project-meta"><span data-i18n="city.dubai">Dubai</span><span data-i18n="area.1500">1,500 m²</span></span>
           <span class="project-brand">
-            <img src="assets/clients/zeiss.webp" alt="Zeiss" loading="lazy" decoding="async">
+            <img src="assets/project-logos/zeiss.png" alt="Zeiss" loading="lazy" decoding="async">
           </span>
           <span class="project-arrow" aria-hidden="true"></span>
+          <span class="project-frame" aria-hidden="true"></span>
         </a>
         <a class="project" href="https://beplan.pl/projects/groupon-headquarters-6th-floor/">
           <img class="project-photo" src="assets/groupon.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
           <span class="project-meta"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.900">900 m²</span></span>
           <span class="project-brand has-mark">
-            <img src="assets/project-logos/groupon.svg" alt="" loading="lazy" decoding="async"><span>Groupon</span>
+            <img src="assets/project-logos/groupon-color.svg" alt="" loading="lazy" decoding="async"><span>Groupon</span>
           </span>
           <span class="project-arrow" aria-hidden="true"></span>
+          <span class="project-frame" aria-hidden="true"></span>
         </a>
         </div>
         <div class="project-band">
@@ -97,25 +96,28 @@
           <img class="project-photo" src="assets/projects/tmobile.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
           <span class="project-meta"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.4000">4,000 m²</span></span>
           <span class="project-brand is-wide">
-            <img src="assets/clients/tmobile.webp" alt="T-Mobile" loading="lazy" decoding="async">
+            <img src="assets/project-logos/tmobile.png" alt="T-Mobile" loading="lazy" decoding="async">
           </span>
           <span class="project-arrow" aria-hidden="true"></span>
+          <span class="project-frame" aria-hidden="true"></span>
         </a>
         <a class="project" href="https://beplan.pl/projects/mercedes-benz/">
           <img class="project-photo" src="assets/projects/mercedes.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
           <span class="project-meta"><span data-i18n="city.barcelona">Barcelona</span><span data-i18n="area.1500">1,500 m²</span></span>
           <span class="project-brand has-mark">
-            <img src="assets/project-logos/mercedes.svg" alt="" loading="lazy" decoding="async"><span>Mercedes-Benz</span>
+            <img src="assets/project-logos/mercedes-white.svg" alt="" loading="lazy" decoding="async"><span>Mercedes-Benz</span>
           </span>
           <span class="project-arrow" aria-hidden="true"></span>
+          <span class="project-frame" aria-hidden="true"></span>
         </a>
         <a class="project" href="https://beplan.pl/projects/tik-tok-bytedance-offices/">
           <img class="project-photo" src="assets/projects/bytedance.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
           <span class="project-meta"><span data-i18n="city.warsaw">Warsaw</span><span data-i18n="area.600">600 m²</span></span>
           <span class="project-brand is-wide">
-            <img src="assets/project-logos/bytedance.svg" alt="ByteDance" loading="lazy" decoding="async">
+            <img src="assets/project-logos/bytedance-dark.svg" alt="ByteDance" loading="lazy" decoding="async">
           </span>
           <span class="project-arrow" aria-hidden="true"></span>
+          <span class="project-frame" aria-hidden="true"></span>
         </a>
         </div>
       </div>
@@ -158,14 +160,17 @@
       </div>
       <div class="sector-grid">
         <article class="sector" data-reveal>
+          <img class="sector-photo" src="assets/sectors/offices.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
           <h3 data-i18n="sector.offices.title">Offices &amp; Workplaces</h3>
           <p data-i18n="sector.offices.text">We design and deliver innovative workplaces that enhance collaboration, productivity and employee well-being. From corporate headquarters and flexible offices to complete workplace transformations, we create environments that reflect each organization’s identity and evolving business needs.</p>
         </article>
         <article class="sector" data-reveal>
+          <img class="sector-photo" src="assets/sectors/residential.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
           <h3 data-i18n="sector.residential.title">Residential</h3>
           <p data-i18n="sector.residential.text">We create distinctive residential spaces that combine contemporary design, comfort and individuality. From luxury apartments and private residences to complete renovations, we deliver thoughtfully designed interiors where aesthetics, functionality and craftsmanship come together.</p>
         </article>
         <article class="sector" data-reveal>
+          <img class="sector-photo" src="assets/sectors/retail.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
           <h3 data-i18n="sector.retail.title">Retail &amp; Commercial</h3>
           <p data-i18n="sector.retail.text">We design and build engaging commercial environments that strengthen brand identity and enhance customer experience. From retail stores and showrooms to hospitality and leisure spaces, we combine creative design with technical expertise to deliver functional, memorable destinations.</p>
         </article>
@@ -297,7 +302,7 @@
       <div class="footer-inner">
         <div class="footer-studio">
           <a class="footer-logo" href="./" aria-label="BEPLAN Design and Build home">
-            <img src="assets/logo-beplan-mark-light.svg" alt="BEPLAN Design + Build" width="756" height="260" loading="lazy">
+            <img src="assets/logo-beplan-mark.svg?v=2" alt="BEPLAN Design + Build" width="756" height="260" loading="lazy">
           </a>
           <p data-i18n="footer.about">Architecture, design and fit-out for workplaces across Europe, the Middle East and Africa.</p>
         </div>
