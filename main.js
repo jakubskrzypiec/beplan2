@@ -79,7 +79,7 @@ const polish = {
   'f.message.ph': 'Co chcesz zmienić i co jest dla Ciebie najważniejsze?',
   'f.consent': 'Wyrażam zgodę na kontakt w sprawie tego zapytania.',
   'f.submit': 'Otwórz szkic e-maila',
-  'f.help': 'Wyślij szkic ze swojego programu pocztowego lub skorzystaj z <a href="https://beplan.pl/#contact-anchor">formularza kontaktowego BEPLAN</a>.',
+  'f.help': 'Wyślij szkic ze swojego programu pocztowego.',
   'clients.title': 'Pracowaliśmy między innymi dla',
   'footer.about': 'Architektura, projektowanie i fit-out przestrzeni pracy w Europie, na Bliskim Wschodzie i w Afryce.',
   'footer.explore': 'Nawigacja',
@@ -114,6 +114,14 @@ const polish = {
   'work.back': 'Wszystkie sektory',
   'work.more': 'Inne sektory',
   'work.view': 'Zobacz realizację',
+  'work.about': 'O projekcie',
+  'work.sector': 'Sektor',
+  'work.location': 'Lokalizacja',
+  'work.area': 'Powierzchnia',
+  'work.prev': 'Poprzednia realizacja',
+  'work.next': 'Następna realizacja',
+  'work.map': 'Mapa realizacji',
+  'work.close': 'Zamknij',
 };
 
 const spanish = {
@@ -190,7 +198,7 @@ const spanish = {
   'f.message.ph': '¿Qué te gustaría cambiar y qué es lo más importante para ti?',
   'f.consent': 'Acepto ser contactado en relación con esta consulta.',
   'f.submit': 'Abrir borrador de correo',
-  'f.help': 'Envía el borrador desde tu aplicación de correo o utiliza el <a href="https://beplan.pl/#contact-anchor">formulario de contacto de BEPLAN</a>.',
+  'f.help': 'Envía el borrador desde tu aplicación de correo.',
   'clients.title': 'Clientes con los que hemos trabajado',
   'footer.about': 'Arquitectura, diseño y acondicionamiento de espacios de trabajo en Europa, Oriente Medio y África.',
   'footer.explore': 'Explorar',
@@ -231,6 +239,14 @@ const spanish = {
   'work.back': 'Todos los sectores',
   'work.more': 'Otros sectores',
   'work.view': 'Ver proyecto',
+  'work.about': 'Sobre el proyecto',
+  'work.sector': 'Sector',
+  'work.location': 'Ubicación',
+  'work.area': 'Superficie',
+  'work.prev': 'Proyecto anterior',
+  'work.next': 'Proyecto siguiente',
+  'work.map': 'Mapa de proyectos',
+  'work.close': 'Cerrar',
 };
 
 const description = document.querySelector('meta[name="description"]');
