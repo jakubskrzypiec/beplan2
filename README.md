@@ -11,6 +11,7 @@ Strona główna po angielsku i polsku, przygotowana na podstawie planszy BEPLAN.
 - Logo BEPLAN (`assets/logo-beplan*.svg`) i zdjęcia realizacji w `assets/projects/` pochodzą z [beplan.pl](https://beplan.pl/). Znaki Glovo, Groupon i Mercedes-Benz w `assets/project-logos/` pochodzą z [Simple Icons](https://simpleicons.org/) (CC0, licencja obok), logo ByteDance z Wikimedia Commons. Wszystkie są znakami towarowymi swoich właścicieli.
 - Nagłówki używają kroju Montserrat (`assets/montserrat-*.woff2`, licencja OFL w `assets/montserrat-OFL.txt`).
 - Język zmienia przełącznik EN/PL/ES w nagłówku i w stopce. Polska i hiszpańska treść znajduje się w słownikach na początku `main.js`.
+- `projects.html` pokazuje trzy sektory realizacji, a `sector.html?s=offices|residential|retail` realizacje danego sektora jako pełnoekranowe kadry animowane przy przewijaniu (GSAP + ScrollTrigger, `work.js`, `work.css`). Dane realizacji z beplan.pl są w `projects-data.js`, zdjęcia w `assets/work/`.
 - `globe.js` wyświetla kopułę z miastami oznaczonymi w `index.html`. Pakiet `assets/globe-geometry.js` zawiera projekcję z d3-geo, funkcje z topojson-client i dane countries-110m z World Atlas oparte na [Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/). Licencje znajdują się w `assets/globe-LICENSES.txt`.
 - `assets/` zawiera także zoptymalizowane kadry z [beplan.pl](https://beplan.pl/) oraz krój Rethink Sans z dołączoną licencją OFL.
 

@@ -105,6 +105,15 @@ const polish = {
   'intro.countries': 'krajów',
   'intro.disciplines': 'dyscypliny pod jednym dachem',
   'projects.all': 'Wszystkie realizacje',
+  'work.title': 'Realizacje',
+  'work.text': 'Biura, domy i wnętrza komercyjne, które zaprojektowaliśmy i zbudowaliśmy. Wybierz sektor, aby zobaczyć realizacje.',
+  'work.offices.short': 'Innowacyjne miejsca pracy, które wspierają współpracę, produktywność i dobre samopoczucie pracowników.',
+  'work.residential.short': 'Wyjątkowe przestrzenie mieszkalne łączące nowoczesny design, komfort i indywidualny charakter.',
+  'work.retail.short': 'Angażujące przestrzenie komercyjne, które wzmacniają tożsamość marki i doświadczenie klientów.',
+  'work.count': 'realizacji',
+  'work.back': 'Wszystkie sektory',
+  'work.more': 'Inne sektory',
+  'work.view': 'Zobacz realizację',
 };
 
 const spanish = {
@@ -213,6 +222,15 @@ const spanish = {
   'intro.countries': 'países',
   'intro.disciplines': 'disciplinas bajo un mismo techo',
   'projects.all': 'Todos los proyectos',
+  'work.title': 'Proyectos',
+  'work.text': 'Oficinas, viviendas e interiores comerciales que hemos diseñado y construido. Elige un sector para ver los proyectos.',
+  'work.offices.short': 'Espacios de trabajo innovadores que impulsan la colaboración, la productividad y el bienestar.',
+  'work.residential.short': 'Espacios residenciales singulares que combinan diseño contemporáneo, confort e individualidad.',
+  'work.retail.short': 'Entornos comerciales atractivos que refuerzan la identidad de marca y la experiencia del cliente.',
+  'work.count': 'proyectos',
+  'work.back': 'Todos los sectores',
+  'work.more': 'Otros sectores',
+  'work.view': 'Ver proyecto',
 };
 
 const description = document.querySelector('meta[name="description"]');
@@ -296,7 +314,7 @@ updateLayout();
 
 // Extra copies of the logo list let the strip loop without a gap.
 const logos = document.querySelector('.marquee-track');
-for (let copies = 0; copies < 2; copies++) {
+if (logos) for (let copies = 0; copies < 2; copies++) {
   const clone = logos.cloneNode(true);
   clone.setAttribute('aria-hidden', 'true');
   logos.parentElement.append(clone);
@@ -305,7 +323,7 @@ for (let copies = 0; copies < 2; copies++) {
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const enquiry = document.querySelector('.enquiry');
-enquiry.addEventListener('submit', (event) => {
+enquiry?.addEventListener('submit', (event) => {
   event.preventDefault();
   const fields = new FormData(enquiry);
   const details = [

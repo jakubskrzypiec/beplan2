@@ -8,8 +8,8 @@
   <title>BEPLAN — Design + Build</title>
   <link rel="preload" href="assets/rethink-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=34">
-  <script src="main.js?v=18" defer></script>
+  <link rel="stylesheet" href="styles.css?v=36">
+  <script src="main.js?v=20" defer></script>
   <script type="module" src="globe.js?v=14"></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
         <img src="assets/logo-beplan-mark.svg?v=2" alt="BEPLAN" width="756" height="260">
       </a>
       <nav class="navigation" id="primary-nav" aria-label="Primary">
-        <a href="#projects" data-i18n="nav.projects">Projects</a>
+        <a href="projects.html" data-i18n="nav.projects">Projects</a>
         <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
         <a href="#sectors" data-i18n="nav.sectors">Sectors</a>
         <a href="#international" data-i18n="nav.international">International</a>
@@ -121,6 +121,7 @@
         </a>
         </div>
       </div>
+      <a class="all-projects" href="projects.html"><span data-i18n="projects.all">All projects</span><span class="all-arrow" aria-hidden="true"></span></a>
     </section>
 
     <div class="paper">
@@ -159,21 +160,21 @@
         <p class="section-description" data-i18n="sectors.text">From dynamic workplaces to distinctive homes and commercial environments, we create spaces that combine design excellence, functionality and lasting value.</p>
       </div>
       <div class="sector-grid">
-        <article class="sector" data-reveal>
+        <a class="sector" href="sector.html?s=offices" data-reveal>
           <img class="sector-photo" src="assets/sectors/offices.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
           <h3 data-i18n="sector.offices.title">Offices &amp; Workplaces</h3>
           <p data-i18n="sector.offices.text">We design and deliver innovative workplaces that enhance collaboration, productivity and employee well-being. From corporate headquarters and flexible offices to complete workplace transformations, we create environments that reflect each organization’s identity and evolving business needs.</p>
-        </article>
-        <article class="sector" data-reveal>
+        </a>
+        <a class="sector" href="sector.html?s=residential" data-reveal>
           <img class="sector-photo" src="assets/sectors/residential.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
           <h3 data-i18n="sector.residential.title">Residential</h3>
           <p data-i18n="sector.residential.text">We create distinctive residential spaces that combine contemporary design, comfort and individuality. From luxury apartments and private residences to complete renovations, we deliver thoughtfully designed interiors where aesthetics, functionality and craftsmanship come together.</p>
-        </article>
-        <article class="sector" data-reveal>
+        </a>
+        <a class="sector" href="sector.html?s=retail" data-reveal>
           <img class="sector-photo" src="assets/sectors/retail.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
           <h3 data-i18n="sector.retail.title">Retail &amp; Commercial</h3>
           <p data-i18n="sector.retail.text">We design and build engaging commercial environments that strengthen brand identity and enhance customer experience. From retail stores and showrooms to hospitality and leisure spaces, we combine creative design with technical expertise to deliver functional, memorable destinations.</p>
-        </article>
+        </a>
       </div>
     </section>
 
@@ -308,7 +309,7 @@
         </div>
         <nav aria-label="Footer">
           <p class="footer-label" data-i18n="footer.explore">Explore</p>
-          <a href="#projects" data-i18n="nav.projects">Projects</a>
+          <a href="projects.html" data-i18n="nav.projects">Projects</a>
           <a href="#expertise" data-i18n="nav.expertise">Expertise</a>
           <a href="#sectors" data-i18n="nav.sectors">Sectors</a>
           <a href="#international" data-i18n="nav.international">International</a>

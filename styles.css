@@ -1478,3 +1478,25 @@ main { padding-top: 0; }
 .project-brand.has-mark img { width: clamp(24px, 2vw, 32px); height: clamp(24px, 2vw, 32px); }
 .project-brand:not(.has-mark):not(.is-wide) img { width: clamp(40px, 3.4vw, 54px); height: clamp(40px, 3.4vw, 54px); }
 .project-brand.is-wide img { height: clamp(18px, 1.6vw, 26px); max-width: clamp(130px, 11vw, 180px); }
+
+/* homepage: link under the project mosaic */
+.all-projects {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(28px, 3vw, 44px);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--heading);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  transition: border-color .3s ease;
+}
+.all-arrow { width: 16px; height: 16px; }
+.all-projects:hover { border-color: var(--blue); }
+.all-projects:hover .all-arrow { transform: translate(3px, -3px); color: var(--blue-soft); }
+
+
+.all-arrow { display: inline-block; width: 16px; height: 16px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 19 19 5M8 5h11v11'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 19 19 5M8 5h11v11'/%3E%3C/svg%3E") center / contain no-repeat; transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
