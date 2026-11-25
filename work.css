@@ -387,3 +387,52 @@
   .pj-nav { grid-template-columns: 1fr; }
   .pj-nav-item.is-next { text-align: left; align-items: flex-start; }
 }
+
+/* Numbers and prev/next labels in white; blue stays for lines and hovers */
+.branch-index, .sector-count b, .more-link b, .pmap-no, .pj-nav-label { color: #fff; }
+.branch-index, .pmap-no { opacity: .8; }
+
+/* The rule next to the label at the top of a page draws in once the page has settled */
+.has-rule-motion :is(.hub-intro, .sector-intro, .pj-text, .legal, .pmap-head) .section-label::after {
+  transition: transform 1.3s cubic-bezier(.2, .7, .2, 1) .6s;
+}
+
+/* Back to top + projects map, top right of every frame */
+.frame-tools {
+  position: absolute;
+  top: calc(var(--header-h) + 4px);
+  right: clamp(18px, 2.2vw, 40px);
+  z-index: 4;
+  display: flex;
+  gap: 8px;
+}
+.frame-tools .frame-map { position: static; }
+.frame-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border: 1px solid #ffffff8c;
+  background: #0000004d;
+  color: #fff;
+  font: 500 12px/1 var(--heading);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background .3s ease, border-color .3s ease;
+}
+.frame-top:hover, .frame-top:focus-visible { background: #fff; border-color: #fff; color: #0b0b0b; }
+.top-icon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20V4M5 11l7-7 7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20V4M5 11l7-7 7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+@media (max-width: 760px) {
+  .frame-top span:first-child { display: none; }
+  .frame-top { padding: 11px; }
+}

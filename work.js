@@ -153,7 +153,10 @@ ${group.map((p) => { n += 1; return `          <a class="panel" href="${projectU
             </span>
           </a>`; }).join('\n')}
         </div>
-        ${mapButton('frame-map')}
+        <div class="frame-tools">
+          <button class="frame-top to-top" type="button"><span data-i18n="footer.top">Back to top</span><span class="top-icon" aria-hidden="true"></span></button>
+          ${mapButton('frame-map')}
+        </div>
       </section>
       <div class="frame-hold" aria-hidden="true"></div>`).join('');
 
@@ -195,6 +198,11 @@ ${list.map((p, i) => `        <a class="pmap-item" href="${projectUrl(p.slug)}">
     opener?.focus();
   }
   document.addEventListener('click', (event) => {
+    if (event.target.closest('.to-top')) {
+      const instant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
+      return;
+    }
     const button = event.target.closest('.map-open');
     if (button) openMap(button);
     if (event.target.closest('.pmap-close')) closeMap();
