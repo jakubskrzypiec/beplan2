@@ -637,3 +637,60 @@
 .ct-form .contact-panel { margin-top: 0; }
 .ct-clients .clients { margin-top: 0; }
 @media (max-width: 760px) { .ct-grid { grid-template-columns: 1fr; } }
+
+/* Contact form: quiet underline fields on the grey band */
+.ct-form-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(40px, 6vw, 120px); align-items: start; }
+.ct-form-head { position: sticky; top: calc(var(--header-h) + 40px); }
+.ct-form-head .section-label { margin-bottom: clamp(16px, 1.7vw, 26px); }
+.ct-form-head .section-description { margin-top: clamp(18px, 2vw, 28px); }
+.ct-form .enquiry { margin: 0; padding: 0; border: 0; gap: clamp(28px, 3vw, 40px); }
+.ct-form .enquiry-fields { gap: clamp(26px, 2.6vw, 38px) clamp(18px, 2vw, 32px); }
+.ct-form .enquiry-fields label { display: grid; gap: 10px; color: #ffffff8c; font: 500 11px/1.2 var(--heading); letter-spacing: .16em; text-transform: uppercase; }
+.ct-form .enquiry-fields label span { font-weight: 500; }
+.ct-form .enquiry-fields label i { font-style: normal; text-transform: none; letter-spacing: .02em; }
+.ct-form .enquiry-fields :is(input, textarea, select) {
+  width: 100%;
+  min-height: 0;
+  padding: 10px 0 12px;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(var(--blue), var(--blue)) left bottom / 0 2px no-repeat, linear-gradient(#ffffff38, #ffffff38) left bottom / 100% 1px no-repeat;
+  color: #fff;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: background-size .5s cubic-bezier(.2, .7, .2, 1);
+  box-shadow: none;
+}
+.ct-form .enquiry-fields :is(input, textarea, select):focus { outline: 0; background-size: 100% 2px, 100% 1px; }
+.ct-form .enquiry-fields :is(input, textarea)::placeholder { color: #ffffff52; }
+.ct-form .enquiry-fields select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 30px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 2px center / 18px no-repeat, linear-gradient(var(--blue), var(--blue)) left bottom / 0 2px no-repeat, linear-gradient(#ffffff38, #ffffff38) left bottom / 100% 1px no-repeat;
+  cursor: pointer;
+}
+.ct-form .enquiry-fields select:focus { background-size: 18px, 100% 2px, 100% 1px; }
+.ct-form .enquiry-fields option { background: #1a1a1a; color: #fff; }
+.ct-form .enquiry-fields textarea { min-height: 120px; resize: vertical; }
+.ct-form .enquiry-consent { align-items: center; gap: 14px; color: #ffffffa6; font-size: 14px; cursor: pointer; }
+.ct-form .enquiry-consent input { appearance: none; -webkit-appearance: none; flex: none; width: 20px; height: 20px; margin: 0; border: 1px solid #ffffff66; background: transparent center / 14px no-repeat; cursor: pointer; transition: background-color .25s ease, border-color .25s ease; }
+.ct-form .enquiry-consent input:checked { border-color: var(--blue); background-color: var(--blue); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E"); }
+.ct-form .enquiry-consent input:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.ct-form .enquiry-submit { gap: 16px 26px; }
+.ct-form .enquiry-submit button { min-height: 54px; padding-inline: 30px; border: 1px solid #fff; background: #fff; color: #0b0b0b; transition: background .3s ease, color .3s ease; }
+.ct-form .enquiry-submit button:hover, .ct-form .enquiry-submit button:focus-visible { background: transparent; color: #fff; }
+.ct-form .enquiry-submit p { color: #ffffff73; }
+@media (max-width: 980px) {
+  .ct-form-grid { grid-template-columns: 1fr; }
+  .ct-form-head { position: static; }
+}
+@media (max-width: 640px) {
+  .ct-form .enquiry-fields { grid-template-columns: 1fr; }
+  .ct-form .enquiry-fields label, .ct-form .enquiry-fields .enquiry-third { grid-column: 1 / -1; }
+}
+.ct-form-head .statement { font-size: clamp(36px, 4vw, 66px); }

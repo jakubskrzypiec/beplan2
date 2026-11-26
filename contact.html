@@ -8,7 +8,7 @@
   <title>Contact — BEPLAN Design + Build</title>
   <link rel="preload" href="assets/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css?v=36">
-  <link rel="stylesheet" href="work.css?v=14">
+  <link rel="stylesheet" href="work.css?v=16">
   <script src="main.js?v=23" defer></script>
 </head>
 <body class="work-page">
@@ -60,10 +60,12 @@
     </section>
 
     <section class="ct-form" aria-labelledby="form-title">
-      <div class="wrap contact-panel">
+      <div class="wrap ct-form-grid">
+        <div class="ct-form-head">
         <p class="section-label" data-i18n="form.label">Contact</p>
         <h2 class="statement" id="form-title" data-i18n="form.title">Tell us about<br>your project.</h2>
         <p class="section-description" data-i18n="form.text">A short brief helps us understand the scope and how we can work together.</p>
+        </div>
         <form class="enquiry" action="mailto:i.molnar@beplan.pl" method="post" enctype="text/plain">
           <div class="enquiry-fields">
             <label><span data-i18n="f.name">Full name</span><input name="name" autocomplete="name" placeholder="How should we address you?" data-i18n-placeholder="f.name.ph" maxlength="120" required></label>
@@ -101,24 +103,6 @@
       </div>
     </section>
 
-    <section class="ct-clients">
-      <div class="clients" aria-labelledby="clients-title">
-        <p class="section-label wrap" id="clients-title" data-i18n="clients.title">Clients we have worked with</p>
-        <div class="marquee">
-          <ul class="marquee-track">
-            <li><img src="assets/clients-color/tmobile.webp" alt="T-Mobile" width="871" height="143" style="--s:0.8" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients-color/pzu.webp" alt="PZU" width="200" height="200" style="--s:1.5" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients-color/ey.webp" alt="EY" width="174" height="200" style="--s:1.6" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients-color/abb.webp" alt="ABB" width="507" height="200" style="--s:0.85" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients-color/zeiss.webp" alt="Zeiss" width="200" height="200" style="--s:1.5" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients-color/plus.webp" alt="Plus" width="570" height="170" style="--s:1" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients-color/chep.webp" alt="CHEP" width="747" height="200" style="--s:0.8" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients-color/idg.webp" alt="IDG" width="396" height="100" style="--s:0.85" loading="lazy" decoding="async"></li>
-            <li><img src="assets/clients-color/dsg.webp" alt="De Sangosse Group" width="373" height="200" style="--s:1.45" loading="lazy" decoding="async"></li>
-          </ul>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
