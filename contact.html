@@ -8,7 +8,7 @@
   <title>Contact — BEPLAN Design + Build</title>
   <link rel="preload" href="assets/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css?v=36">
-  <link rel="stylesheet" href="work.css?v=13">
+  <link rel="stylesheet" href="work.css?v=14">
   <script src="main.js?v=23" defer></script>
 </head>
 <body class="work-page">
@@ -35,10 +35,89 @@
     </div>
   </header>
 
-  <main id="main">
-    <section class="contact-page wrap" aria-labelledby="contact-title">
-      <p class="section-label">BEPLAN Design + Build</p>
+  <main id="main" class="contact-page-main">
+    <section class="hub-intro wrap" aria-labelledby="contact-title">
+      <p class="section-label" data-i18n="contact.label">Get in touch</p>
       <h1 class="statement" id="contact-title" data-i18n="nav.contact">Contact</h1>
+      <p class="section-description" data-i18n="contact.text">Tell us what you’re planning. We’ll talk through your space, timeline and next steps.</p>
+    </section>
+
+    <section class="ct-offices" aria-label="Offices">
+      <div class="wrap ct-grid">
+        <address class="ct-card">
+          <p class="section-label" data-i18n="city.warsaw">Warsaw</p>
+          <p class="ct-line" data-i18n="footer.warsaw">Wschodnia 5, 05-090, Poland</p>
+          <a class="ct-big" href="tel:+48666244516">+48 666 244 516</a>
+          <a class="ct-big" href="mailto:i.molnar@beplan.pl">i.molnar@beplan.pl</a>
+        </address>
+        <address class="ct-card">
+          <p class="section-label" data-i18n="city.valencia">Valencia</p>
+          <p class="ct-line" data-i18n="footer.valencia">Av. Francia 47, Valencia, Spain</p>
+          <a class="ct-big" href="tel:+34618567136">+34 618 567 136</a>
+          <a class="ct-big" href="mailto:i.molnar@beplan360.com">i.molnar@beplan360.com</a>
+        </address>
+      </div>
+    </section>
+
+    <section class="ct-form" aria-labelledby="form-title">
+      <div class="wrap contact-panel">
+        <p class="section-label" data-i18n="form.label">Contact</p>
+        <h2 class="statement" id="form-title" data-i18n="form.title">Tell us about<br>your project.</h2>
+        <p class="section-description" data-i18n="form.text">A short brief helps us understand the scope and how we can work together.</p>
+        <form class="enquiry" action="mailto:i.molnar@beplan.pl" method="post" enctype="text/plain">
+          <div class="enquiry-fields">
+            <label><span data-i18n="f.name">Full name</span><input name="name" autocomplete="name" placeholder="How should we address you?" data-i18n-placeholder="f.name.ph" maxlength="120" required></label>
+            <label><span data-i18n="f.email">Email</span><input name="email" type="email" autocomplete="email" placeholder="name@company.com" maxlength="150" required></label>
+            <label><span data-i18n="f.phone">Phone <i>(optional)</i></span><input name="phone" type="tel" autocomplete="tel" placeholder="+48 000 000 000" maxlength="40"></label>
+            <label><span data-i18n="f.type">Project type</span>
+              <select name="projectType">
+                <option value="" data-i18n="f.type.0">Select a project type</option>
+                <option data-i18n="f.type.1">Office fit-out</option>
+                <option data-i18n="f.type.2">Retail or hospitality</option>
+                <option data-i18n="f.type.3">Refurbishment</option>
+                <option data-i18n="f.type.4">Other</option>
+              </select>
+            </label>
+            <label class="enquiry-third"><span data-i18n="f.location">Location</span><input name="location" placeholder="City or area" data-i18n-placeholder="f.location.ph" maxlength="150"></label>
+            <label class="enquiry-third"><span data-i18n="f.area">Floor area</span><input name="area" placeholder="e.g. 750 m²" data-i18n-placeholder="f.area.ph" maxlength="70"></label>
+            <label class="enquiry-third"><span data-i18n="f.start">Planned start</span>
+              <select name="start">
+                <option value="" data-i18n="f.start.0">Select a time frame</option>
+                <option data-i18n="f.start.1">As soon as possible</option>
+                <option data-i18n="f.start.2">Within 3 months</option>
+                <option data-i18n="f.start.3">In 3 to 6 months</option>
+                <option data-i18n="f.start.4">In 6 months or later</option>
+                <option data-i18n="f.start.5">Still planning</option>
+              </select>
+            </label>
+            <label class="enquiry-message"><span data-i18n="f.message">A few words about your project</span><textarea name="message" rows="4" maxlength="1500" placeholder="What would you like to change, and what matters most to you?" data-i18n-placeholder="f.message.ph" required></textarea></label>
+          </div>
+          <label class="enquiry-consent"><input type="checkbox" name="contactConsent" value="Yes" required> <span data-i18n="f.consent">I agree to be contacted about this enquiry.</span></label>
+          <div class="enquiry-submit">
+            <button class="button" type="submit" aria-describedby="enquiry-help" data-i18n="f.submit">Open email draft</button>
+            <p id="enquiry-help" data-i18n="f.help">Send the draft from your email app.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="ct-clients">
+      <div class="clients" aria-labelledby="clients-title">
+        <p class="section-label wrap" id="clients-title" data-i18n="clients.title">Clients we have worked with</p>
+        <div class="marquee">
+          <ul class="marquee-track">
+            <li><img src="assets/clients-color/tmobile.webp" alt="T-Mobile" width="871" height="143" style="--s:0.8" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/pzu.webp" alt="PZU" width="200" height="200" style="--s:1.5" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/ey.webp" alt="EY" width="174" height="200" style="--s:1.6" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/abb.webp" alt="ABB" width="507" height="200" style="--s:0.85" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/zeiss.webp" alt="Zeiss" width="200" height="200" style="--s:1.5" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/plus.webp" alt="Plus" width="570" height="170" style="--s:1" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/chep.webp" alt="CHEP" width="747" height="200" style="--s:0.8" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/idg.webp" alt="IDG" width="396" height="100" style="--s:0.85" loading="lazy" decoding="async"></li>
+            <li><img src="assets/clients-color/dsg.webp" alt="De Sangosse Group" width="373" height="200" style="--s:1.45" loading="lazy" decoding="async"></li>
+          </ul>
+        </div>
+      </div>
     </section>
   </main>
 

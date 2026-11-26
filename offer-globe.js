@@ -113,7 +113,7 @@ function run() {
     if (haze > 0.01) {
       const clouds = [
         [0.22 - pullOut * 0.18, 0.28 + pullOut * 0.1, 0.55, '71,133,197'],
-        [0.82 + pullOut * 0.12, 0.7 - pullOut * 0.15, 0.5, '96,84,170'],
+        [0.82 + pullOut * 0.12, 0.7 - pullOut * 0.15, 0.5, '71,133,197'],
         [0.6 - pullOut * 0.3, 0.12 + pullOut * 0.2, 0.35, '127,176,227'],
       ];
       for (const [fx, fy, size, rgb] of clouds) {
@@ -202,31 +202,6 @@ function run() {
         context.beginPath(); path(borders); context.strokeStyle = '#b1b1b155'; context.stroke();
         drawCities(radius, lon, lat, compact);
       }
-    }
-
-    // The Moon slides past close to the camera on the way out.
-    const moonT = span(p, 0.16, 0.62);
-    if (moonT > 0 && moonT < 1) {
-      const small = Math.min(width, height);
-      const mr = small * mix(0.13, 0.035, smooth(moonT));
-      const mx = mix(width * 1.12, width * 0.08, smooth(moonT));
-      const my = mix(height * 0.22, height * 0.34, moonT);
-      context.globalAlpha = Math.sin(Math.PI * moonT) * 1.4 > 1 ? 1 : Math.sin(Math.PI * moonT) * 1.4;
-      const moonShade = context.createRadialGradient(mx - mr * 0.35, my - mr * 0.35, mr * 0.1, mx, my, mr);
-      moonShade.addColorStop(0, '#9a9a9a');
-      moonShade.addColorStop(0.6, '#4a4a4a');
-      moonShade.addColorStop(1, '#151515');
-      context.fillStyle = moonShade;
-      context.beginPath();
-      context.arc(mx, my, mr, 0, Math.PI * 2);
-      context.fill();
-      context.fillStyle = '#00000038';
-      for (const [ox, oy, s] of [[-0.3, -0.1, 0.18], [0.25, 0.2, 0.12], [0.05, -0.4, 0.09], [-0.1, 0.35, 0.14], [0.4, -0.15, 0.07]]) {
-        context.beginPath();
-        context.arc(mx + ox * mr, my + oy * mr, s * mr, 0, Math.PI * 2);
-        context.fill();
-      }
-      context.globalAlpha = 1;
     }
 
     // Overlay copy follows the same timeline.

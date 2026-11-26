@@ -440,11 +440,6 @@
 /* Current page in the menu */
 .navigation a[aria-current="page"] { color: #fff; }
 
-/* Contact page (content to come) */
-.contact-page { min-height: 70vh; min-height: 70svh; padding-block: calc(var(--header-h) + clamp(50px, 7vw, 120px)) clamp(80px, 9vw, 150px); }
-.contact-page .section-label { margin-bottom: clamp(18px, 1.8vw, 28px); }
-.contact-page .statement { font-size: clamp(48px, 8vw, 136px); overflow-wrap: anywhere; }
-.has-rule-motion .contact-page .section-label::after { transition: transform 1.3s cubic-bezier(.2, .7, .2, 1) .6s; }
 
 /* ---------- Offer: services tiles ---------- */
 .offer-services { background: var(--black-2); padding-block: clamp(80px, 9vw, 150px); }
@@ -628,3 +623,17 @@
 /* The blue rule of the closing heading draws in when the heading arrives */
 .has-rule-motion .offer-space .space-end .section-label::after { transform: scaleX(0); transition: transform 1.2s cubic-bezier(.2, .7, .2, 1) .25s; }
 .has-rule-motion .offer-space.is-end .space-end .section-label::after { transform: scaleX(1); }
+
+/* ---------- Contact page ---------- */
+.contact-page-main .hub-intro { padding-bottom: clamp(60px, 7vw, 110px); }
+.ct-offices { background: #141414; padding-block: clamp(70px, 8vw, 130px); }
+.ct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1vw, 16px); }
+.ct-card { display: grid; align-content: start; gap: 14px; padding: clamp(26px, 3vw, 48px); background: #1c1c1c; font-style: normal; }
+.ct-card .section-label { margin-bottom: clamp(10px, 1.4vw, 22px); }
+.ct-line { margin: 0 0 clamp(10px, 1.4vw, 20px); color: var(--muted); font-size: 16px; }
+.ct-big { justify-self: start; color: #fff; font: 500 clamp(20px, 2vw, 32px)/1.2 var(--heading); letter-spacing: -.01em; text-decoration: none; background: linear-gradient(var(--blue), var(--blue)) left bottom / 0 1px no-repeat; padding-bottom: 4px; transition: background-size .5s cubic-bezier(.2, .7, .2, 1); overflow-wrap: anywhere; }
+.ct-big:hover, .ct-big:focus-visible { background-size: 100% 1px; }
+.ct-form { background: #1a1a1a; padding-block: clamp(80px, 9vw, 150px); }
+.ct-form .contact-panel { margin-top: 0; }
+.ct-clients .clients { margin-top: 0; }
+@media (max-width: 760px) { .ct-grid { grid-template-columns: 1fr; } }
