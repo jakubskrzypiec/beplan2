@@ -7,6 +7,8 @@ const polish = {
   'nav.international': 'Na świecie',
   'nav.studio': 'Studio',
   'nav.contact': 'Kontakt',
+  'nav.home': 'Start',
+  'nav.offer': 'Oferta',
   'hero.title': 'Projektujemy.<br>Budujemy.<br>Oddajemy pod klucz.',
   'hero.explore': 'Zobacz realizacje',
   'hero.contact': 'Napisz do nas',
@@ -132,6 +134,8 @@ const spanish = {
   'nav.international': 'Internacional',
   'nav.studio': 'Estudio',
   'nav.contact': 'Contacto',
+  'nav.home': 'Inicio',
+  'nav.offer': 'Servicios',
   'hero.title': 'Diseñamos.<br>Construimos.<br>Entregamos.',
   'hero.explore': 'Ver proyectos',
   'hero.contact': 'Contáctanos',
@@ -248,6 +252,12 @@ const spanish = {
   'work.map': 'Mapa de proyectos',
   'work.close': 'Cerrar',
 };
+
+// Page-specific copy (e.g. offer.js) joins the shared dictionaries.
+if (window.BEPLAN_COPY) {
+  Object.assign(polish, window.BEPLAN_COPY.pl);
+  Object.assign(spanish, window.BEPLAN_COPY.es);
+}
 
 const description = document.querySelector('meta[name="description"]');
 const english = { 'meta.description': description.content };
